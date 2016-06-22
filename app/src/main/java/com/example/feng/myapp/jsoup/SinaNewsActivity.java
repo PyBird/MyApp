@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidviewhover.BlurLayout;
@@ -66,9 +67,9 @@ public class SinaNewsActivity extends BaseActivity {
 
         options = new ImageOptions.Builder()
                 //设置加载过程中的图片
-                .setLoadingDrawableId(R.drawable.ic_launcher)
+                .setLoadingDrawableId(R.drawable.loading)
                 //设置加载失败后的图片
-                .setFailureDrawableId(R.drawable.ic_launcher)
+                .setFailureDrawableId(R.drawable.logo)
                 //设置使用缓存
                 .setUseMemCache(true)
                 //设置显示圆形图片
@@ -80,9 +81,8 @@ public class SinaNewsActivity extends BaseActivity {
 
     private void getData(){
 
-//        progressDialog.show();
+        progressDialog.show();
         new Thread(runnable).start();
-
     }
 
     private void addLinearView(ArrayList<Map<String,String>> map){
@@ -96,8 +96,17 @@ public class SinaNewsActivity extends BaseActivity {
             ImageView imageView = (ImageView)linearView.findViewById(R.id.iv_img);
             x.image().bind(imageView,item.get("img"),options);
 
+//            Picasso.with(this)
+//                    .load(item.get("img"))
+//                    .placeholder(R.drawable.loading)
+//                    .error(R.drawable.logo)
+//                    .into(imageView);
+
             TextView tv_txt = (TextView)hover.findViewById(R.id.tv_txt);
-            tv_txt.setText(item.get("title"));
+//            tv_txt.setText(item.get("title"));
+
+            TextView tv_title = (TextView)linearView.findViewById(R.id.tv_title);
+            tv_title.setText(item.get("title"));
 
             BlurLayout blur_layout = (BlurLayout)linearView.findViewById(R.id.blur_layout);
 //        blur_layout.removeAllViews();
@@ -132,9 +141,19 @@ public class SinaNewsActivity extends BaseActivity {
         @Override
         public void handleMessage(Message message){
 
-            htmlData = new ArrayList<Map<String, String>>();
-            htmlData.addAll(GetHtmlData.getSinaNewsData(document));
-            addLinearView(htmlData);
+            try{
+                htmlData = new ArrayList<Map<String, String>>();
+                htmlData.addAll(GetHtmlData.getSinaNewsData(document));
+                addLinearView(htmlData);
+
+                progressDialog.dismiss();
+
+            }catch (Exception e){
+
+                progressDialog.dismiss();
+                Toast.makeText(SinaNewsActivity.this, "解析出错", Toast.LENGTH_SHORT).show();
+            }
+
         }
     };
 }

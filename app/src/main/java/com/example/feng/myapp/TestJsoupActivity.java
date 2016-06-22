@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.feng.myapp.base.BaseActivity;
+import com.example.feng.myapp.jsoup.HDWMovieActivity;
 import com.example.feng.myapp.jsoup.SinaNewsActivity;
 import com.example.feng.myapp.utils.jsoup.DocumentUtils;
 
@@ -23,7 +24,7 @@ public class TestJsoupActivity extends BaseActivity {
     Document document;
 
     private ListView lv_list;
-    private String[] listData={"新浪新闻"};
+    private String[] listData={"新浪新闻","电影"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,9 @@ public class TestJsoupActivity extends BaseActivity {
                 switch (position){
                     case 0:
                         startActivity(new Intent(TestJsoupActivity.this,SinaNewsActivity.class));
+                        break;
+                    case 1:
+                        startActivity(new Intent(TestJsoupActivity.this,HDWMovieActivity.class));
                         break;
                 }
             }

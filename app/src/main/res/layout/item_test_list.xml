@@ -5,14 +5,37 @@
 
     <com.daimajia.androidviewhover.BlurLayout
         android:id="@+id/blur_layout"
-        android:layout_width="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_marginBottom="5dp">
+
         <ImageView
             android:id="@+id/iv_img"
-            android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="match_parent" />
+
+        <!--<LinearLayout-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="vertical">-->
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="14546456445"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:background="#50000000"
+                android:textSize="18sp" />
+
+        <!--</LinearLayout>-->
     </com.daimajia.androidviewhover.BlurLayout>
 
 </LinearLayout>

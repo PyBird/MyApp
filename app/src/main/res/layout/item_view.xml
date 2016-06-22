@@ -13,8 +13,9 @@
         android:maxLines="3"
         android:textSize="18sp"
         android:ellipsize="end"
-        android:text="14546456445"
+        android:text="查看详情"
         android:textColor="#FFFFFF"
+        android:background="#80000000"
         />
 
 </LinearLayout>

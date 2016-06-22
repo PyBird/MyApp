@@ -1,7 +1,5 @@
 package com.example.feng.myapp.utils.jsoup;
 
-import android.util.Log;
-
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -22,11 +20,11 @@ public class GetHtmlData {
 
         Elements elements = element.getElementsByTag("li");
 
-        Log.e("element", "-----------------" + element);
-        Log.e("elements", "-----------------" + elements);
+//        Log.e("element", "-----------------" + element);
+//        Log.e("elements", "-----------------" + elements);
 
         for (Element element1 : elements) {
-            Log.e("element1", "-----------------" + element1);
+//            Log.e("element1", "-----------------" + element1);
             Elements a = element1.getElementsByTag("a");
             Elements img = element1.getElementsByTag("img");
             Elements div = element1.getElementsByTag("div");
