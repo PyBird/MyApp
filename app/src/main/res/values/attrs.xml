@@ -2,7 +2,7 @@
 <resources>
     
     <declare-styleable name="HeadView">
-        <attr name="title" format="string" />
+        <attr name="head_title" format="string" />
         <attr name="background_color" format="color" />
         <attr name="left_img" format="reference" />
         <attr name="left_text" format="string" />

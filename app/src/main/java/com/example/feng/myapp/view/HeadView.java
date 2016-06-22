@@ -16,7 +16,7 @@ import com.example.feng.myapp.R;
  */
 public class HeadView extends LinearLayout {
 
-	private String title;
+	private String head_title;
 	private int bgColor;
 	private int leftImageResource;
 	private int rightImageResource;
@@ -71,7 +71,7 @@ public class HeadView extends LinearLayout {
 		 * 获取属性值
 		 */
 		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HeadView);
-		title = typedArray.getString(R.styleable.HeadView_title);
+		head_title = typedArray.getString(R.styleable.HeadView_head_title);
 		bgColor = typedArray.getColor(R.styleable.HeadView_background_color, Color.WHITE);
 		leftImageResource = typedArray.getResourceId(R.styleable.HeadView_left_img, 0);
 		rightImageResource = typedArray.getResourceId(R.styleable.HeadView_right_img, 0);
@@ -104,7 +104,7 @@ public class HeadView extends LinearLayout {
 		
 		layoutContent.setBackgroundColor(bgColor);
 		
-		tvTitle.setText(title);
+		tvTitle.setText(head_title);
 //		tvTitle.setTextSize(titleTextSize);
 
 

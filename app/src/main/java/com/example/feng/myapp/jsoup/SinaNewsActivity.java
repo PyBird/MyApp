@@ -2,6 +2,7 @@ package com.example.feng.myapp.jsoup;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidviewhover.BlurLayout;
 import com.example.feng.myapp.R;
+import com.example.feng.myapp.WebViewActivity;
 import com.example.feng.myapp.base.BaseActivity;
 import com.example.feng.myapp.utils.jsoup.DocumentUtils;
 import com.example.feng.myapp.utils.jsoup.GetHtmlData;
@@ -88,7 +90,7 @@ public class SinaNewsActivity extends BaseActivity {
     private void addLinearView(ArrayList<Map<String,String>> map){
 
         ll_linear.removeAllViews();
-        for(Map<String,String> item:map){
+        for(final Map<String,String> item:map){
 
             View linearView = LayoutInflater.from(context).inflate(R.layout.item_test_list, null);
             View hover = LayoutInflater.from(context).inflate(R.layout.item_view, null);
@@ -104,6 +106,15 @@ public class SinaNewsActivity extends BaseActivity {
 
             TextView tv_txt = (TextView)hover.findViewById(R.id.tv_txt);
 //            tv_txt.setText(item.get("title"));
+            tv_txt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String href = item.get("href");
+                    Intent intent = new Intent(SinaNewsActivity.this, WebViewActivity.class);
+                    intent.putExtra("href",href);
+                    startActivity(intent);
+                }
+            });
 
             TextView tv_title = (TextView)linearView.findViewById(R.id.tv_title);
             tv_title.setText(item.get("title"));

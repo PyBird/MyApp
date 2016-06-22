@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 /**
- * Created by tocet on 2016/5/13.
+ * Created by onepeak on 2016/5/13.
  * 解决Toast重复弹出
  */
 public class MyToastUtils {
@@ -16,13 +16,13 @@ public class MyToastUtils {
 
     public static void showToastShort(Context context, String s){
         if(toast==null){
-            toast = Toast.makeText(context, s, Toast.LENGTH_SHORT);
+            toast =Toast.makeText(context, s, Toast.LENGTH_SHORT);
             toast.show();
-            oneTime= System.currentTimeMillis();
+            oneTime=System.currentTimeMillis();
         }else{
-            twoTime= System.currentTimeMillis();
+            twoTime=System.currentTimeMillis();
             if(s.equals(oldMsg)){
-                if(twoTime-oneTime> Toast.LENGTH_SHORT){
+                if(twoTime-oneTime>Toast.LENGTH_SHORT){
                     toast.show();
                 }
             }else{
@@ -40,13 +40,13 @@ public class MyToastUtils {
 
     public static void showToastLong(Context context, String s){
         if(toast==null){
-            toast = Toast.makeText(context, s, Toast.LENGTH_LONG);
+            toast =Toast.makeText(context, s, Toast.LENGTH_LONG);
             toast.show();
-            oneTime= System.currentTimeMillis();
+            oneTime=System.currentTimeMillis();
         }else{
-            twoTime= System.currentTimeMillis();
+            twoTime=System.currentTimeMillis();
             if(s.equals(oldMsg)){
-                if(twoTime-oneTime> Toast.LENGTH_LONG){
+                if(twoTime-oneTime>Toast.LENGTH_LONG){
                     toast.show();
                 }
             }else{

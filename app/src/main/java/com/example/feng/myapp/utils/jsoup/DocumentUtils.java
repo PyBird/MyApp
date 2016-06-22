@@ -2,6 +2,8 @@ package com.example.feng.myapp.utils.jsoup;
 
 import android.util.Log;
 
+import com.example.feng.myapp.utils.MyToastUtils;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -33,7 +35,7 @@ public class DocumentUtils {
 //                    .userAgent("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")
 //                    .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31")
 //                    .cookie("auth", "token")
-                    .timeout(300)
+                    .timeout(3000)
                     .get();
 
 //            Log.e("getDocumentFromUrl","------------------------------------------"+doc.title());

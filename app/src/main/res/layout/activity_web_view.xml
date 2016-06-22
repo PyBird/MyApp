@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.example.feng.myapp.jsoup.HDWMovieActivity">
+    tools:context="com.example.feng.myapp.WebViewActivity">
 
     <com.example.feng.myapp.view.HeadView
         android:id="@+id/hv_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:head_title="电影"
+        app:head_title="详情"
         app:left_text="返回"/>
 
-    <GridView
-        android:id="@+id/gv_data"
+    <WebView
+        android:id="@+id/wv_web"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="2"
-        android:horizontalSpacing="5dp"
-        android:verticalSpacing="5dp"
-        android:scrollbars="none" />
+        android:layout_height="match_parent"
+        android:scrollbars="none"/>
 
 </LinearLayout>
