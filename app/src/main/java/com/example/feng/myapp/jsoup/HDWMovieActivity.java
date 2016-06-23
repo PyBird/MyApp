@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.feng.myapp.R;
 import com.example.feng.myapp.WebViewActivity;
@@ -25,6 +26,7 @@ import com.example.feng.myapp.utils.ViewHolder;
 import com.example.feng.myapp.utils.jsoup.DocumentUtils;
 import com.example.feng.myapp.utils.jsoup.GetHtmlData;
 import com.example.feng.myapp.view.HeadView;
+import com.example.feng.myapp.view.MarqueeTextView;
 import com.squareup.picasso.Picasso;
 
 import org.jsoup.nodes.Document;
@@ -66,12 +68,12 @@ public class HDWMovieActivity extends BaseActivity {
         progressDialog.setMessage("加载数据中");
         progressDialog.setCancelable(false);
 
-//        WindowManager wm = this.getWindowManager();
-//        //获取屏幕宽高
-//        int width = wm.getDefaultDisplay().getWidth();
+        WindowManager wm = this.getWindowManager();
+        //获取屏幕宽高
+        int width = wm.getDefaultDisplay().getWidth();
 //        int imgW=189;
 //        int imgH=267;
-//        int newWidth = width/2;
+        final int newWidth = width/2;
 //        final RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(newWidth,imgH*newWidth/imgW);
 
         htmlData = new ArrayList<Map<String, String>>();
@@ -79,11 +81,17 @@ public class HDWMovieActivity extends BaseActivity {
             @Override
             protected void setView(ViewHolder viewHolder, Map<String, String> item) {
 
-                viewHolder.setTextToTextView(R.id.tv_title,item.get("title"));
                 ImageView iv_img = viewHolder.GetView(R.id.iv_img);
 //                x.image().bind(iv_img,item.get("img"), LoadImgUtils.getImageOptions());
 //                iv_img.setLayoutParams(layoutParams);
                 Picasso.with(HDWMovieActivity.this).load(item.get("img")).error(R.drawable.ic_launcher).placeholder(R.drawable.logo).into(iv_img);
+
+//                viewHolder.setTextToTextView(R.id.tv_title,item.get("title"));
+                MarqueeTextView tv_title = (MarqueeTextView)viewHolder.GetView(R.id.tv_title);
+                tv_title.setScrollWidth(newWidth-100);
+//                tv_title.setCurrentPosition(newWidth+100);
+                tv_title.setSpeed(2);
+                tv_title.setText(item.get("title"));
             }
         };
 

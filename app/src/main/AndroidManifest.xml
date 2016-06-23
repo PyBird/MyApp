@@ -53,7 +53,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".jsoup.SinaNewsActivity" />
         <activity android:name=".jsoup.HDWMovieActivity" />
-        <activity android:name=".WebViewActivity"></activity>
+        <activity android:name=".WebViewActivity" />
+        <activity android:name=".TestActivity"></activity>
     </application>
 
 </manifest>

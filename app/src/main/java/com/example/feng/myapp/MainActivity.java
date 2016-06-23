@@ -42,7 +42,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(new Intent(this,TestJsoupActivity.class));
                 break;
             case R.id.ll_top_right2:
-                startActivity(new Intent(this,MultipleRoutePlanningActivity.class));
+//                startActivity(new Intent(this,MultipleRoutePlanningActivity.class));
+                startActivity(new Intent(this,TestActivity.class));
                 break;
         }
     }

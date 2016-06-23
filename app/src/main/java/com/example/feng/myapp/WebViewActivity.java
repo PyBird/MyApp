@@ -61,6 +61,9 @@ public class WebViewActivity extends Activity {
         settings.setUseWideViewPort(true);//关键点
 //        settings.setJavaScriptCanOpenWindowsAutomatically(true);
 
+        progressDialog.setProgress(100);
+        progressDialog.getProgress();
+
     }
 
     private void initEvent(){
@@ -108,5 +111,12 @@ public class WebViewActivity extends Activity {
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        wv_web.removeAllViews();
+        wv_web.destroy();
     }
 }
