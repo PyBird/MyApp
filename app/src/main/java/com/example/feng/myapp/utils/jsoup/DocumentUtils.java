@@ -1,11 +1,13 @@
 package com.example.feng.myapp.utils.jsoup;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.feng.myapp.utils.MyToastUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.safety.Whitelist;
 
 import java.io.IOException;
 
@@ -19,6 +21,9 @@ public class DocumentUtils {
      * @return Document
      */
     public static Document getDocumentFromUrl(String url){
+        if(TextUtils.isEmpty(url)){
+            return null;
+        }
         Document doc = null;
         try {
 
@@ -44,6 +49,7 @@ public class DocumentUtils {
             e.printStackTrace();
             Log.e("IOException","----------------------start--------------------"+e);
         }
+
         return doc;
     }
 }

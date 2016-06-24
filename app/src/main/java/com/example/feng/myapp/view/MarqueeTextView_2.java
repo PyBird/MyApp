@@ -7,35 +7,29 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 /**
  * 水平滚动TextView
  * Created by onepeak on 2016/6/23.
  */
-public class MarqueeTextView extends TextView {
+public class MarqueeTextView_2 extends TextView {
 
     /** 是否停止滚动 */
     private boolean mStopMarquee;
-    private String mText;
-    private float mCoordinateX;//当前滚动位置
+    private String mText;//文本内容
+    private float mCoordinateX = 1280;//当前滚动位置
     private float mTextWidth;//文本宽度
-    private int mScrollWidth = 0;//滚动区域宽度(下次滚动的开始位置)
+    private int mScrollWidth = 1280;//滚动区域宽度
     private int speed = 2;//滚动速度
 
-    private int mTextLineHeight=42;
-
-    public MarqueeTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public float getCurrentPosition() {
+        return mCoordinateX;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    //设置滚动信息从滚动区域的右边出来
+    public void setCurrentPosition(float mCoordinateX) {
+        this.mCoordinateX = mCoordinateX;
     }
 
     public int getScrollWidth() {
@@ -47,60 +41,71 @@ public class MarqueeTextView extends TextView {
         this.mScrollWidth = mScrollWidth;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public MarqueeTextView_2(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
     public void setText(String text) {
         this.mText = text;
+        Log.e("setText","-------------"+mText);
         mTextWidth = getPaint().measureText(mText);
-        mTextLineHeight = this.getLineHeight();
-
-//        Log.e("setText","-------------"+mText+"-------mTextLineHeight:"+mTextLineHeight+"------mTextWidth-"+mTextWidth);
-
+        //mTextWidth = 1280;
         if (mHandler.hasMessages(0))
             mHandler.removeMessages(0);
+//        mHandler.sendEmptyMessageDelayed(0, 10);
         mHandler.sendEmptyMessageDelayed(0, 2000);
     }
 
 
-    @SuppressLint("NewApi")
     @Override
     protected void onAttachedToWindow() {
         mStopMarquee = false;
-        if (!(mText == null || mText.isEmpty()))
+        Log.e("onAttachedToWindow","-------onAttachedToWindow------"+mStopMarquee+"------------"+mText);
+        if (!isEmpty(mText))
             mHandler.sendEmptyMessageDelayed(0, 2000);
         super.onAttachedToWindow();
     }
 
+    public static boolean isEmpty(String str) {
+        return str == null || str.length() == 0;
+    }
 
     @Override
     protected void onDetachedFromWindow() {
         mStopMarquee = true;
+        Log.e("onDetachedFromWindow","-------onDetachedFromWindow------"+mStopMarquee);
         if (mHandler.hasMessages(0))
             mHandler.removeMessages(0);
         super.onDetachedFromWindow();
     }
 
-
-    @SuppressLint("NewApi")
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (!(mText == null || mText.isEmpty()))
-            canvas.drawText(mText, mCoordinateX, mTextLineHeight-8, getPaint());
+        if (!isEmpty(mText))
+            canvas.drawText(mText, mCoordinateX, 150, getPaint());
     }
 
-
-    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+
+//            Log.e("handleMessage","-------------mScrollWidth："+mScrollWidth+"----mCoordinateX:"+mCoordinateX+"---mStopMarquee："+mStopMarquee);
             switch (msg.what) {
                 case 0:
-//                    if (Math.abs(mCoordinateX) > (mTextWidth + 5)) {
-//                        mCoordinateX = 0;
                     if (mCoordinateX < (-mTextWidth)) {//文字滚动完了，从滚动区域的右边出来
                         mCoordinateX = mScrollWidth;
                         invalidate();
                         if (!mStopMarquee) {
-                            sendEmptyMessageDelayed(0,500);
+                            sendEmptyMessageDelayed(0, 500);
                         }
                     } else {
                         mCoordinateX -= speed;
@@ -109,6 +114,7 @@ public class MarqueeTextView extends TextView {
                             sendEmptyMessageDelayed(0, 30);
                         }
                     }
+
                     break;
             }
             super.handleMessage(msg);

@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:head_title="电影"
-        app:left_text="返回"/>
+        app:left_text="返回"
+        app:right_text="下一页"/>
 
     <GridView
         android:id="@+id/gv_data"

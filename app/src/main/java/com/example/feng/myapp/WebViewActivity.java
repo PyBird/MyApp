@@ -2,13 +2,13 @@ package com.example.feng.myapp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.example.feng.myapp.utils.MyToastUtils;
 import com.example.feng.myapp.view.HeadView;
@@ -61,6 +61,10 @@ public class WebViewActivity extends Activity {
         settings.setUseWideViewPort(true);//关键点
 //        settings.setJavaScriptCanOpenWindowsAutomatically(true);
 
+
+        // 添加一个对象, 让JS可以访问该对象的方法, 该对象中可以调用JS中的方法
+//        wv_web.addJavascriptInterface(new Contact(), "contact");
+
         progressDialog.setProgress(100);
         progressDialog.getProgress();
 
@@ -92,6 +96,25 @@ public class WebViewActivity extends Activity {
                 progressDialog.dismiss();
             }
         });
+    }
+
+    private final class Contact {
+        //JavaScript调用此方法拨打电话
+        public void call(String phone) {
+//            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone)));
+            Toast.makeText(WebViewActivity.this, phone, Toast.LENGTH_LONG).show();
+        }
+
+        //Html调用此方法传递数据
+        public void showcontacts() {
+            String json = "[{\"name\":\"zxx\", \"amount\":\"9999999\", \"phone\":\"18600012345\"}]";
+            // 调用JS中的方法
+            wv_web.loadUrl("javascript:show('" + json + "')");
+        }
+
+        public void toast(String str){
+            Toast.makeText(WebViewActivity.this, "aaaaaaaaaaaa  --- " + str, Toast.LENGTH_LONG).show();
+        }
     }
 
     //改写物理按键——返回的逻辑

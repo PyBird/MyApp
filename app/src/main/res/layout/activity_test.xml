@@ -20,22 +20,29 @@
         android:text="45646545646445464564878789789789HJHJSHJHGJHSJGHJSKGK146546NMNMNMNKJIK4546578"
         />
 
-    <com.example.feng.myapp.view.MarqueeTextView
+    <com.example.feng.myapp.view.MarqueeTextView_2
         android:id="@+id/mt_roll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:padding="20dp"/>
 
-    <com.example.feng.myapp.view.MarqueeTextView
+    <com.example.feng.myapp.view.MarqueeTextView_2
         android:id="@+id/mt_roll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:padding="20dp"/>
 
-    <com.example.feng.myapp.view.MarqueeTextView
+    <com.example.feng.myapp.view.MarqueeTextView_2
         android:id="@+id/mt_roll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:padding="20dp"/>
+
+    <com.example.feng.myapp.view.MarqueeTextView
+        android:id="@+id/mt_roll3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"

@@ -3,18 +3,18 @@ package com.example.feng.myapp;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.feng.myapp.view.MarqueeTextView_2;
 import com.example.feng.myapp.view.MarqueeTextView;
 
 public class TestActivity extends Activity {
 
     private TextView tv_roll;
-    private MarqueeTextView mt_roll;
-    private MarqueeTextView mt_roll1;
-    private MarqueeTextView mt_roll2;
+    private MarqueeTextView_2 mt_roll;
+    private MarqueeTextView_2 mt_roll1;
+    private MarqueeTextView_2 mt_roll2;
+    private MarqueeTextView mt_roll3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +22,10 @@ public class TestActivity extends Activity {
         setContentView(R.layout.activity_test);
 
         tv_roll = (TextView)findViewById(R.id.tv_roll);
-        mt_roll = (MarqueeTextView)findViewById(R.id.mt_roll);
-        mt_roll1 = (MarqueeTextView)findViewById(R.id.mt_roll1);
-        mt_roll2 = (MarqueeTextView)findViewById(R.id.mt_roll2);
+        mt_roll = (MarqueeTextView_2)findViewById(R.id.mt_roll);
+        mt_roll1 = (MarqueeTextView_2)findViewById(R.id.mt_roll1);
+        mt_roll2 = (MarqueeTextView_2)findViewById(R.id.mt_roll2);
+        mt_roll3 = (MarqueeTextView)findViewById(R.id.mt_roll3);
 
 //        ViewGroup.MarginLayoutParams margin1 = new ViewGroup.MarginLayoutParams(mt_roll2.getLayoutParams());
 //        margin1.setMargins(100, 200, 0, 0);//设置滚动区域位置：在左边距400像素，顶边距10像素的位置
@@ -41,6 +42,8 @@ public class TestActivity extends Activity {
         mt_roll1.setText("15647897978979756456JKSAJGKSHGHSHGJ4587874545KLLKSJHG,,,,,,jkjkjk,,,,,");
         mt_roll2.setSpeed(5);
         mt_roll2.setText("15647897978979756456JKSAJGKSHGHSHGJ4587874545KLLKSJHG,,,,,,jkjkjk,,,,,");
+
+        mt_roll3.setText("15647897978979756456JKSAJGKSHGHSHGJ4587874545KLLKSJHG,,,,,,jkjkjk,,,,,");
 
         mt_roll.setOnClickListener(new View.OnClickListener() {
             @Override

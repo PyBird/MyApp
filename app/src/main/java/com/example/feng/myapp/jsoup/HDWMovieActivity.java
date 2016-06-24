@@ -5,21 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.example.feng.myapp.R;
 import com.example.feng.myapp.WebViewActivity;
+import com.example.feng.myapp.WebViewHtmlActivity;
 import com.example.feng.myapp.base.BaseActivity;
-import com.example.feng.myapp.utils.LoadImgUtils;
 import com.example.feng.myapp.utils.MyToastUtils;
 import com.example.feng.myapp.utils.SmartAdapter;
 import com.example.feng.myapp.utils.ViewHolder;
@@ -30,7 +27,6 @@ import com.example.feng.myapp.view.MarqueeTextView;
 import com.squareup.picasso.Picasso;
 
 import org.jsoup.nodes.Document;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -46,9 +42,10 @@ public class HDWMovieActivity extends BaseActivity {
     private ArrayList<Map<String, String>> htmlData;
 
     private ProgressDialog progressDialog;
-    private Thread thread;
 
     private String URL="http://www.hdwan.net/";
+    private String URL_DETAIL="";
+    private int HTML_TYPE=1;//请求类型，1.列表，2.详情
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +57,20 @@ public class HDWMovieActivity extends BaseActivity {
         getData();
     }
 
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
+        handler.removeCallbacks(runnable);
+    }
+
     private void initView() {
         headView = (HeadView) findViewById(R.id.hv_head);
         gv_data = (GridView) findViewById(R.id.gv_data);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("加载数据中");
-        progressDialog.setCancelable(false);
+//        progressDialog.setCancelable(false);
 
         WindowManager wm = this.getWindowManager();
         //获取屏幕宽高
@@ -87,29 +91,13 @@ public class HDWMovieActivity extends BaseActivity {
                 Picasso.with(HDWMovieActivity.this).load(item.get("img")).error(R.drawable.ic_launcher).placeholder(R.drawable.logo).into(iv_img);
 
 //                viewHolder.setTextToTextView(R.id.tv_title,item.get("title"));
-                MarqueeTextView tv_title = (MarqueeTextView)viewHolder.GetView(R.id.tv_title);
-                tv_title.setScrollWidth(newWidth-100);
-//                tv_title.setCurrentPosition(newWidth+100);
-                tv_title.setSpeed(2);
+                MarqueeTextView tv_title = viewHolder.GetView(R.id.tv_title);
+                tv_title.setScrollWidth(newWidth);
                 tv_title.setText(item.get("title"));
             }
         };
 
         gv_data.setAdapter(smartAdapter);
-
-//        gv_data.setOnScrollListener(new AbsListView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//                Log.e("onScrollStateChanged","--------------AbsListView:"+view+"--------scrollState:"+scrollState);
-//            }
-//
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//
-//                Log.e("onScroll","--------------firstVisibleItem:"+firstVisibleItem+"--------visibleItemCount:"+visibleItemCount+"----totalItemCount:"+totalItemCount);
-//            }
-//        });
-
     }
 
     private void initEvent() {
@@ -120,13 +108,28 @@ public class HDWMovieActivity extends BaseActivity {
             }
         });
 
+        headView.setRightLayoutOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MyToastUtils.showToastLong(HDWMovieActivity.this,"next--"+URL);
+                getData();
+            }
+        });
+
+        headView.getRightView().setVisibility(View.INVISIBLE);
+
         gv_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String href = htmlData.get(position).get("href");
-                Intent intent = new Intent(HDWMovieActivity.this, WebViewActivity.class);
-                intent.putExtra("href",href);
-                startActivity(intent);
+//                String href = htmlData.get(position).get("href");
+//                Intent intent = new Intent(HDWMovieActivity.this, WebViewHtmlActivity.class);
+//                intent.putExtra("href",href);
+//                startActivity(intent);
+
+                HTML_TYPE=2;
+                URL_DETAIL = htmlData.get(position).get("href");
+                getData();
             }
         });
     }
@@ -134,20 +137,23 @@ public class HDWMovieActivity extends BaseActivity {
     private void getData() {
 
         progressDialog.show();
-        if(thread==null){
-            thread = new Thread(runnable);
-        }
-        thread.start();
+
+        new Thread(runnable).start();
     }
 
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
 
-            document = DocumentUtils.getDocumentFromUrl(URL);
+            if(HTML_TYPE==1){
+                document = DocumentUtils.getDocumentFromUrl(URL);
+            }else{
+                document = DocumentUtils.getDocumentFromUrl(URL_DETAIL);
+            }
 
             Message msg = new Message();
-            msg.what = 1;
+            msg.what = HTML_TYPE;
+            HTML_TYPE=1;
             handler.sendMessage(msg);
         }
     };
@@ -164,15 +170,42 @@ public class HDWMovieActivity extends BaseActivity {
 
                     try{
                         htmlData.addAll(GetHtmlData.getHDWIndexData(document));
+                        Map<String,String> map = GetHtmlData.getHDWIndexDataAndPage(document);
+                        String nextUrl = map.get("nextUrl");
+                        String extendUrl = map.get("extendUrl");
+                        String page = map.get("page");
+                        if(!TextUtils.isEmpty(page) && !TextUtils.isEmpty(nextUrl)){
+                            headView.getRightTextView().setText(page);
+//                            headView.getRightTextView().setTag(nextUrl);
+                            URL = nextUrl;
+                            headView.getRightView().setVisibility(View.VISIBLE);
+                        }
+
                     }catch (Exception e){
                         MyToastUtils.showToastShort(HDWMovieActivity.this,"解析出错");
                     }
                 }else{
                     MyToastUtils.showToastShort(HDWMovieActivity.this,"获取数据失败");
                 }
-
+//                document.remove();
                 smartAdapter.notifyDataSetChanged();
-            }else{
+            }
+            else if (message.what == 2) {
+                Map<String,String> map = GetHtmlData.getHDWDetailData(document);
+                String html = map.get("html");
+                String downUrl = map.get("downUrl");
+
+                if(TextUtils.isEmpty(html)){
+
+                    MyToastUtils.showToastShort(HDWMovieActivity.this,"数据为空");
+                }else{
+//                    String href = htmlData.get(position).get("href");
+                    Intent intent = new Intent(HDWMovieActivity.this, WebViewHtmlActivity.class);
+                    intent.putExtra("html",html);
+                    startActivity(intent);
+                }
+            }
+            else{
                 MyToastUtils.showToastShort(HDWMovieActivity.this,"请求网络失败");
             }
         }

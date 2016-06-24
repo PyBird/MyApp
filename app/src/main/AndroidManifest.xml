@@ -54,7 +54,8 @@
         <activity android:name=".jsoup.SinaNewsActivity" />
         <activity android:name=".jsoup.HDWMovieActivity" />
         <activity android:name=".WebViewActivity" />
-        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".WebViewHtmlActivity" />
+        <activity android:name=".TestActivity"/>
     </application>
 
 </manifest>
