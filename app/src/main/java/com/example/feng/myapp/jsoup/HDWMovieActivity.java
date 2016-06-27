@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class HDWMovieActivity extends BaseActivity {
@@ -191,23 +192,42 @@ public class HDWMovieActivity extends BaseActivity {
                 smartAdapter.notifyDataSetChanged();
             }
             else if (message.what == 2) {
-                Map<String,String> map = GetHtmlData.getHDWDetailData(document);
-                String html = map.get("html");
-                String downUrl = map.get("downUrl");
 
-                if(TextUtils.isEmpty(html)){
+                try{
 
-                    MyToastUtils.showToastShort(HDWMovieActivity.this,"数据为空");
-                }else{
+                    Map<String, Object> map = GetHtmlData.getHDWDetailData(document);
+                    String html = map.get("html")+"";
+//                    String downUrl = map.get("downUrl");
+//                    String downName = map.get("downName");
+//                    String downType = map.get("downType");
+                    ArrayList<String> downUrl = (ArrayList<String>)map.get("downUrl");
+                    ArrayList<String> downName = (ArrayList<String>)map.get("downName");
+                    ArrayList<String> downType = (ArrayList<String>)map.get("downType");
+
+                    if (TextUtils.isEmpty(html)) {
+
+                        MyToastUtils.showToastShort(HDWMovieActivity.this, "数据为空");
+                    } else {
 //                    String href = htmlData.get(position).get("href");
-                    Intent intent = new Intent(HDWMovieActivity.this, WebViewHtmlActivity.class);
-                    intent.putExtra("html",html);
-                    startActivity(intent);
+                        Intent intent = new Intent(HDWMovieActivity.this, WebViewHtmlActivity.class);
+                        intent.putExtra("html", html);
+//                        intent.putExtra("downUrl", downUrl);
+//                        intent.putExtra("downName", downName);
+//                        intent.putExtra("downType", downType);
+                        intent.putStringArrayListExtra("downUrl", downUrl);
+                        intent.putStringArrayListExtra("downName", downName);
+                        intent.putStringArrayListExtra("downType", downType);
+                        startActivity(intent);
+                    }
+
+                }catch (Exception e){
+                    MyToastUtils.showToastShort(HDWMovieActivity.this,"解析出错");
                 }
             }
             else{
                 MyToastUtils.showToastShort(HDWMovieActivity.this,"请求网络失败");
             }
+
         }
     };
 }

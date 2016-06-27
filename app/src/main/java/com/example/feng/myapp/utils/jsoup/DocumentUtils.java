@@ -34,7 +34,7 @@ public class DocumentUtils {
             //post或者get方法
             Log.e("getDocumentFromUrl","----------------------start--------------------");
             doc = Jsoup.connect(url)
-                    .data("query", "Java")
+//                    .data("query", "Java")
 //                    .userAgent("Mozilla")
                     .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0")
 //                    .userAgent("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")

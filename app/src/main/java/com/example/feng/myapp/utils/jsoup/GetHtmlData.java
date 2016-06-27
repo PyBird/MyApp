@@ -1,5 +1,6 @@
 package com.example.feng.myapp.utils.jsoup;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.jsoup.Jsoup;
@@ -10,6 +11,7 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -121,10 +123,10 @@ public class GetHtmlData {
         }
 
 
-        try {
-            nextUrl = nextUrl.split("\\?")[0];
-            extendUrl = extendUrl.split("\\?")[0];
-        }catch (Exception e){}
+//        try {
+//            nextUrl = nextUrl.split("\\?")[0];
+//            extendUrl = extendUrl.split("\\?")[0];
+//        }catch (Exception e){}
 
         Map<String,String> map = new HashMap<String, String>();
         map.put("nextUrl",nextUrl);
@@ -140,19 +142,82 @@ public class GetHtmlData {
      * @param document
      * @return
      */
-    public static Map<String,String> getHDWDetailData(Document document){
+    public static Map<String,Object> getHDWDetailData(Document document){
 
         Element element = document.getElementById("post_content");
 
+        Elements elements = element.getElementsByTag("img");
+        elements.attr("width","100%");
+        elements.attr("height","auto");
+
+//        String downUrl="";
+//        String downName="";
+//        String downType="";
+        ArrayList<String> downUrl = new ArrayList<String>();
+        ArrayList<String> downName = new ArrayList<String>();
+        ArrayList<String> downType = new ArrayList<String>();
+        try{
+
+            Elements down = element.getElementsByClass("dw-box");//dw-box-download
+//            Element downElement = down.get(0);
+//            Elements downElements = downElement.getElementsByTag("a");
+//            downUrl = downElements.attr("href");
+//            downName = downElements.text();
+//            String[] type = downUrl.split(".");
+//            int leng = type.length;
+//            if(leng>0){
+//                downType=type[leng-1];
+//            }
+
+            for(Element downElement:down){
+
+                Elements downElements = downElement.getElementsByTag("a");
+//                downUrl[] = downElements.attr("href");
+                downName.add(downElements.text());
+                String url = downElements.attr("href");
+                downUrl.add(url);
+                if(TextUtils.isEmpty(url)){
+                    String[] type = url.split(".");
+                    int leng = type.length;
+                    if(leng>0){
+                        downType.add(type[leng-1]);
+                    }else{
+                        downType.add("");
+                    }
+                }else{
+                    downType.add("");
+                }
+
+            }
+
+//            Log.e("down","------------down---"+downUrl);
+//            Log.e("elements","------------1---"+elements);
+
+        }catch (Exception e){}
+
         String html = element.html();
 
-        Elements down = element.getElementsByClass("dw-box dw-box-download");
-        String downUrl = down.attr("href");
+//        html = Jsoup.clean(html, Whitelist.basicWithImages());
 
-        html = Jsoup.clean(html, Whitelist.basicWithImages());
-        Map<String,String> map = new HashMap<String, String>();
+//        html = Jsoup.clean(html, Whitelist.simpleText());
+
+//        Log.e("html","-------------1--"+html);
+        Whitelist whitelist = Whitelist.basicWithImages();
+        whitelist.removeAttributes("a","href");
+
+        html = Jsoup.clean(html, whitelist);
+
+//        Log.e("html","------------2---"+html);
+
+//        int lastA = html.lastIndexOf("<a");
+//        if(lastA>0){
+//        }
+
+        Map<String,Object> map = new HashMap<String, Object>();
         map.put("html",html);
         map.put("downUrl",downUrl);
+        map.put("downName",downName);
+        map.put("downType",downType);
 
         return map;
     }
