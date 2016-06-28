@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--normal-->
+    <layoutAnimation
+        android:delay="1"
+        android:animationOrder="random"
+        android:animation="@anim/anim_alpha"
+        />
+
+</set>

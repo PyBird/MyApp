@@ -10,6 +10,7 @@ import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -173,19 +174,28 @@ public class GetHtmlData {
 
                 Elements downElements = downElement.getElementsByTag("a");
 //                downUrl[] = downElements.attr("href");
-                downName.add(downElements.text());
+                String name = downElements.text();
                 String url = downElements.attr("href");
-                downUrl.add(url);
-                if(TextUtils.isEmpty(url)){
+
+                if(!TextUtils.isEmpty(url)){
+
+//                    downName.add(name);
+                    downUrl.add(url);
+
                     String[] type = url.split(".");
                     int leng = type.length;
                     if(leng>0){
                         downType.add(type[leng-1]);
                     }else{
-                        downType.add("");
+                        downType.add("torrent");
                     }
-                }else{
-                    downType.add("");
+
+                    if(TextUtils.isEmpty(name)){
+                        name = new Date().getTime()+"";
+                        downName.add(name);
+                    }else{
+                        downName.add(name);
+                    }
                 }
 
             }

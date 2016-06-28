@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.feng.myapp.naviMapDemo.MultipleRoutePlanningActivity;
+import com.example.feng.myapp.test.TestAnimationsActivity;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -43,7 +44,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.ll_top_right2:
 //                startActivity(new Intent(this,MultipleRoutePlanningActivity.class));
-                startActivity(new Intent(this,TestActivity.class));
+//                startActivity(new Intent(this,TestActivity.class));
+                startActivity(new Intent(this,TestAnimationsActivity.class));
                 break;
         }
     }

@@ -8,6 +8,7 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 /**
@@ -42,7 +43,10 @@ public class MarqueeTextView extends TextView {
         return mScrollWidth;
     }
 
-    //设置滚动区域宽度
+    /**
+     * 设置滚动区域宽度
+     * @param mScrollWidth (-1为当前屏幕宽度（在setText之后执行）)
+     */
     public void setScrollWidth(int mScrollWidth) {
         this.mScrollWidth = mScrollWidth;
     }

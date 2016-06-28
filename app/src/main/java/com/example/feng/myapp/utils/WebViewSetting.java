@@ -43,6 +43,7 @@ public class WebViewSetting {
         String baseUrl="about:blank"; //初始化URL
         String historyUrl = null;//历史URL
         view.loadDataWithBaseURL(baseUrl, html, "text/html", "utf-8", historyUrl);
+//        view.loadData(html, "text/html", "UTF-8");
     }
 
     /**

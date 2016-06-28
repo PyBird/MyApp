@@ -8,11 +8,14 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.feng.myapp.common.Common;
 import com.example.feng.myapp.utils.CommonDialog;
@@ -35,6 +38,7 @@ public class WebViewHtmlActivity extends Activity {
 
     private HeadView headView;
     private WebView wv_web;
+    private LinearLayout ll_down;
 
     private ProgressDialog progressDialog;
 //    private String downUrl="";//下载地址
@@ -44,7 +48,7 @@ public class WebViewHtmlActivity extends Activity {
     private ArrayList<String> downName = new ArrayList<String>();//下载文件名
     private ArrayList<String> downType = new ArrayList<String>();//下载文件类型
 
-    private CommonDialog commonDialog;
+    CommonDialog commonDialog;
     private SmartAdapter<String> dialogAdapter;
 
     @Override
@@ -75,10 +79,9 @@ public class WebViewHtmlActivity extends Activity {
             }
             progressDialog.show();
 
-//            wv_web.loadDataWithBaseURL("about:blank", tt, "text/html", "utf-8", null);
             WebViewSetting.webViewShowTextHtml(wv_web,html);
-//            wv_web.loadData(tt, "text/html", "UTF-8");
 //            wv_web.reload();
+
         }else{
             MyToastUtils.showToastShort(this,"链接为空");
         }
@@ -88,24 +91,10 @@ public class WebViewHtmlActivity extends Activity {
 
         headView = (HeadView)findViewById(R.id.hv_head);
         wv_web = (WebView)findViewById(R.id.wv_web);
+        ll_down = (LinearLayout) findViewById(R.id.ll_down);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("加载中……");
-
-//        WebSettings settings = wv_web.getSettings();
-//        settings.setJavaScriptEnabled(false);//启用支持javascript
-////        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);//优先使用缓存
-//        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存
-//        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //图片自适应 1、LayoutAlgorithm.NARROW_COLUMNS ：适应内容大小 2、LayoutAlgorithm.SINGLE_COLUMN:适应屏幕，内容将自动缩放
-//        settings.setSupportZoom(false);// 设置支持缩放
-//        settings.setBuiltInZoomControls(true);// 设置缩放工具的显示
-////        settings.setAllowFileAccess(true); // 允许访问文件
-//        settings.setUseWideViewPort(true);//关键点
-//        settings.setLoadWithOverviewMode(true);
-
-//        progressDialog.setProgress(100);
-//        progressDialog.getProgress();
-
     }
 
     private void initEvent(){
@@ -125,11 +114,12 @@ public class WebViewHtmlActivity extends Activity {
 
                     MyToastUtils.showToastShort(WebViewHtmlActivity.this,"暂无下载");
                 }else{
-                    if(downUrl.size()==1){
-                        downFile(0);
-                    }else{
-                        initDownDialog();
-                    }
+//                    if(downUrl.size()==1){
+//                        downFile(0);
+//                    }else{
+//                        initDownDialog();
+//                    }
+                    showDownLayout();
                 }
             }
         });
@@ -154,60 +144,113 @@ public class WebViewHtmlActivity extends Activity {
         });
     }
 
-    private void initDownDialog(){
-        if(commonDialog!=null){
-            addDialogView();
-            commonDialog.show();
-//            dialogAdapter.notifyDataSetChanged();
-            return;
-        }else {
+    private void showDownLayout(){
 
-            commonDialog = new CommonDialog(this, R.layout.dialog_list);
-//            LinearLayout ll_dialog = commonDialog.getThisView(R.id.ll_dialog);
-            addDialogView();
+        ll_down.removeAllViews();
 
-//            ListView lv_dialog = commonDialog.getThisView(R.id.lv_dialog);
-//            dialogAdapter = new SmartAdapter<String>(this, downName, R.layout.item_dialog_marquee_textview) {
-//                @Override
-//                protected void setView(ViewHolder viewHolder, String item) {
-//
-//                    MarqueeTextView mv_item = viewHolder.GetView(R.id.mv_item);
-//                    mv_item.setSpeed(3);
-//                    mv_item.setText(item);
-//                }
-//            };
-//
-//            lv_dialog.setAdapter(dialogAdapter);
-//
-//            lv_dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    downFile(downUrl.get(position), position);
-//                    commonDialog.dismiss();
-//                }
-//            });
-//            dialogAdapter.notifyDataSetChanged();
-//            commonDialog.show();
-        }
-    }
-
-    private void addDialogView(){
-
-        LinearLayout ll_dialog = commonDialog.getThisView(R.id.ll_dialog);
-//        int leng = downName.size();
         for (final String name:downName){
 //            String name = downName.get(position);
             View view = View.inflate(this,R.layout.item_dialog_marquee_textview,null);
             MarqueeTextView mv_item = (MarqueeTextView)view.findViewById(R.id.mv_item);
             mv_item.setSpeed(3);
             mv_item.setText(name);
-
+//
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     int position = downName.indexOf(name);
                     downFile(position);
+                    InOutDownView(0);
+                }
+            });
+
+            ll_down.addView(view);
+        }
+
+//        Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_down_movie_in);
+//        ll_down.startAnimation(animation);
+        InOutDownView(1);
+    }
+
+    private void InOutDownView(int isIn){
+        if(isIn==1){
+            Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_down_movie_in);
+            animation.setFillBefore(false);
+            animation.setFillAfter(true);
+            ll_down.startAnimation(animation);
+        }else{
+            Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_down_movie_out);
+            animation.setFillBefore(false);
+            animation.setFillAfter(true);
+            ll_down.startAnimation(animation);
+        }
+
+
+    }
+
+    private void initDownDialog(){
+        if(commonDialog!=null){
+//            addDialogView();
+            commonDialog.show();
+            dialogAdapter.notifyDataSetChanged();
+            return;
+        }else {
+
+            commonDialog = new CommonDialog(this, R.style.commonDialog, R.layout.dialog_list);
+//            LinearLayout ll_dialog = commonDialog.getThisView(R.id.ll_dialog);
+//            addDialogView();
+            commonDialog.setCancelable(true);
+            commonDialog.setCanceledOnTouchOutside(true);
+            commonDialog.show();
+            ListView lv_dialog = commonDialog.getThisView(R.id.lv_dialog);
+            dialogAdapter = new SmartAdapter<String>(this, downName, R.layout.item_dialog_marquee_textview) {
+                @Override
+                protected void setView(ViewHolder viewHolder, String item) {
+
+                    MarqueeTextView mv_item = viewHolder.GetView(R.id.mv_item);
+                    mv_item.setSpeed(3);
+                    mv_item.setText(item);
+                }
+            };
+
+            lv_dialog.setAdapter(dialogAdapter);
+
+            lv_dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    downFile(position);
+                    commonDialog.dismiss();
+                }
+            });
+            dialogAdapter.notifyDataSetChanged();
+            commonDialog.show();
+        }
+    }
+
+    private void addDialogView(){
+        commonDialog.setCancelable(true);
+        commonDialog.setCanceledOnTouchOutside(true);
+        commonDialog.show();
+//        LinearLayout ll_dialog = commonDialog.getThisView(R.id.ll_dialog);
+        LinearLayout ll_dialog = (LinearLayout)commonDialog.findViewById(R.id.ll_dialog);
+//        int leng = downName.size();
+        for (final String name:downName){
+//            String name = downName.get(position);
+            View view = View.inflate(this,R.layout.item_dialog_marquee_textview,null);
+//            TextView tv_item = (TextView)view.findViewById(R.id.tv_item);
+//            tv_item.setText("0000111112223333");
+            MarqueeTextView mv_item = (MarqueeTextView)view.findViewById(R.id.mv_item);
+            mv_item.setSpeed(3);
+            mv_item.setText(name);
+//            mv_item.setText("456465464546");
+//
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+//                    int position = downName.indexOf(name);
+//                    downFile(position);
                     commonDialog.dismiss();
                 }
             });
@@ -273,7 +316,7 @@ public class WebViewHtmlActivity extends Activity {
 
                 Log.e("onLoading","--------onLoading----all-"+all+"--now-"+now+"--"+b);
                 progressDown.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                progressDown.setMessage("文件下载中。。。");
+                progressDown.setMessage("文件下载中……");
                 progressDown.show();
                 progressDown.setMax((int) all);
                 progressDown.setProgress((int) now);
@@ -282,23 +325,27 @@ public class WebViewHtmlActivity extends Activity {
             @Override
             public void onSuccess(File o) {
                 Log.e("onSuccess","--------onSuccess-----"+o);
+                MyToastUtils.showToastLong(WebViewHtmlActivity.this,"下载成功："+o.getName());
             }
 
             @Override
             public void onError(Throwable throwable, boolean b) {
                 Log.e("onError","--------onError-----"+throwable+"--"+b);
+
+                MyToastUtils.showToastLong(WebViewHtmlActivity.this,"下载失败："+throwable);
             }
 
             @Override
             public void onCancelled(CancelledException e) {
                 Log.e("onCancelled","--------onCancelled-----"+e);
-                progressDown.dismiss();
+                MyToastUtils.showToastLong(WebViewHtmlActivity.this,"onCancelled："+e);
             }
 
             @Override
             public void onFinished() {
                 Log.e("onFinished","--------onFinished-----");
                 progressDown.dismiss();
+//                MyToastUtils.showToastLong(WebViewHtmlActivity.this,"下载完成");
             }
         });
 
