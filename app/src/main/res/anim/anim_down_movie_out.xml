@@ -14,9 +14,9 @@
         <!--android:duration="1000"/>-->
 
     <translate
-        android:fromXDelta="50%p"
-        android:fromYDelta="50%p"
-        android:toXDelta="0"
+        android:fromXDelta="0"
+        android:fromYDelta="0"
+        android:toXDelta="100%p"
         android:toYDelta="0"
         android:duration="1000"/>
 </set>

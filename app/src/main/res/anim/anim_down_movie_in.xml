@@ -14,10 +14,10 @@
         <!--android:duration="1000"/>-->
 
     <translate
-        android:fromXDelta="0"
+        android:fromXDelta="99%p"
         android:fromYDelta="0"
-        android:toXDelta="50%p"
-        android:toYDelta="50%p"
+        android:toXDelta="0"
+        android:toYDelta="0"
         android:duration="1000"/>
 
 </set>

@@ -152,16 +152,16 @@ public class WebViewHtmlActivity extends Activity {
 //            String name = downName.get(position);
             View view = View.inflate(this,R.layout.item_dialog_marquee_textview,null);
             MarqueeTextView mv_item = (MarqueeTextView)view.findViewById(R.id.mv_item);
-            mv_item.setSpeed(3);
+//            mv_item.setSpeed(3);
             mv_item.setText(name);
 //
-            view.setOnClickListener(new View.OnClickListener() {
+            mv_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
+                    InOutDownView(0);
                     int position = downName.indexOf(name);
                     downFile(position);
-                    InOutDownView(0);
                 }
             });
 
@@ -173,19 +173,46 @@ public class WebViewHtmlActivity extends Activity {
         InOutDownView(1);
     }
 
-    private void InOutDownView(int isIn){
+    private void InOutDownView(final int isIn){
+        Animation animation;
         if(isIn==1){
-            Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_down_movie_in);
-            animation.setFillBefore(false);
-            animation.setFillAfter(true);
-            ll_down.startAnimation(animation);
+            animation = AnimationUtils.loadAnimation(this,R.anim.anim_down_movie_in);
+//            ll_down.startAnimation(animation);
+//            ll_down.setVisibility(View.VISIBLE);
         }else{
-            Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_down_movie_out);
-            animation.setFillBefore(false);
-            animation.setFillAfter(true);
-            ll_down.startAnimation(animation);
+            animation = AnimationUtils.loadAnimation(this,R.anim.anim_down_movie_out);
+//            ll_down.startAnimation(animation);
+//            ll_down.setVisibility(View.GONE);
         }
 
+        animation.setFillBefore(false);
+        animation.setFillAfter(true);
+        animation.setStartOffset(0);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                if(isIn==1){
+                    ll_down.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if(isIn!=1){
+                    ll_down.setVisibility(View.GONE);
+                }
+                ll_down.clearAnimation();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+//        ll_down.setAnimation(animation);
+//        ll_down.clearAnimation();
+        ll_down.startAnimation(animation);
 
     }
 

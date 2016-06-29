@@ -55,7 +55,8 @@
         <activity android:name=".WebViewActivity" />
         <activity android:name=".WebViewHtmlActivity" />
         <activity android:name=".TestActivity" />
-        <activity android:name=".test.TestAnimationsActivity"></activity>
+        <activity android:name=".test.TestAnimationsActivity" />
+        <activity android:name=".test.TestGalleryActivity"></activity>
     </application>
 
 </manifest>

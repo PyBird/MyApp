@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <declare-styleable name="HeadView">
         <attr name="head_title" format="string" />
         <attr name="background_color" format="color" />
@@ -16,6 +16,10 @@
         <attr name="right_text_size" format="dimension" />
         <attr name="show_right" format="boolean" />
         <attr name="show_left" format="boolean" />
-    </declare-styleable> 
-    
+    </declare-styleable>
+
+    <declare-styleable name="Gallery">
+        <attr name="android:galleryItemBackground" />
+    </declare-styleable>
+
 </resources>
