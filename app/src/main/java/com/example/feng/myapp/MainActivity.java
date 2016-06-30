@@ -12,18 +12,24 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 
+import com.example.feng.myapp.base.BaseActivity;
 import com.example.feng.myapp.naviMapDemo.MultipleRoutePlanningActivity;
 import com.example.feng.myapp.test.TestAnimationsActivity;
 import com.example.feng.myapp.test.TestGalleryActivity;
+import com.example.feng.myapp.test.TestLoadingActivity;
+import com.example.feng.myapp.test.TestPropertyAnimationActivity;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout ll_top_left;
     private LinearLayout ll_top_left2;
     private LinearLayout ll_top_right;
     private LinearLayout ll_top_right2;
 
-    private int LinearHeight=0;
+    private LinearLayout ll_center_left;
+    private LinearLayout ll_center_right;
+
+    private int LinearHeight=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +46,30 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ll_top_right2 = (LinearLayout)findViewById(R.id.ll_top_right2);
         ll_top_right2.setOnClickListener(this);
 
+        ll_center_left = (LinearLayout)findViewById(R.id.ll_center_left);
+        ll_center_left.setOnClickListener(this);
+        ll_center_right = (LinearLayout)findViewById(R.id.ll_center_right);
+        ll_center_right.setOnClickListener(this);
+
         ll_top_left.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
 
-                int uuuu = ll_top_left.getMeasuredHeight();
-                initAnimation(uuuu);
+                LinearHeight = ll_top_left.getMeasuredHeight();
+                initAnimation(LinearHeight);
                 ll_top_left.getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });
 
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        if(LinearHeight>0){
+            initAnimation(LinearHeight);
+        }
     }
 
     @Override
@@ -64,18 +84,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.ll_top_left2:
-                startActivity(new Intent(this,TestJsoupActivity.class));
+//                startActivity(new Intent(this,TestJsoupActivity.class));
                 break;
+
             case R.id.ll_top_right2:
 //                startActivity(new Intent(this,MultipleRoutePlanningActivity.class));
 //                startActivity(new Intent(this,TestActivity.class));
 //                startActivity(new Intent(this,TestAnimationsActivity.class));
                 startActivity(new Intent(this,TestGalleryActivity.class));
                 break;
+
+            case R.id.ll_center_left:
+                startActivity(new Intent(this,TestPropertyAnimationActivity.class));
+                break;
+
+            case R.id.ll_center_right:
+                startActivity(new Intent(this,TestLoadingActivity.class));
+                break;
         }
     }
 
-    private void initAnimation(int uuuu){
+    public void initAnimation(int uuuu){
 
         WindowManager wm = this.getWindowManager();
         int width = wm.getDefaultDisplay().getWidth();
@@ -104,10 +133,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //        ll_top_left2.setAnimation(translate3);
 //        ll_top_right2.setAnimation(translate4);
 
+//        translate1.setStartTime(0);
+//        translate2.setStartTime(0);
         ll_top_left.startAnimation(translate1);
         ll_top_right.startAnimation(translate2);
         ll_top_left2.startAnimation(translate3);
         ll_top_right2.startAnimation(translate4);
+
 
         translate4.setAnimationListener(new Animation.AnimationListener() {
             @Override

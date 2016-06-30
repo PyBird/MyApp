@@ -40,8 +40,8 @@ public class TestGalleryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_gallery);
 
-//        testGallery();
-        testRecyclerView();
+        testGallery();
+//        testRecyclerView();
     }
 
     /************************testRecyclerView---********************************/
