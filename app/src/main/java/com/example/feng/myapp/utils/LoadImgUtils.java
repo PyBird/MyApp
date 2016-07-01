@@ -25,7 +25,7 @@ public class LoadImgUtils {
                     //设置加载过程中的图片
                     .setLoadingDrawableId(R.drawable.loading)
                     //设置加载失败后的图片
-                    .setFailureDrawableId(R.drawable.logo)
+                    .setFailureDrawableId(R.drawable.logo_h)
                     //设置使用缓存
                     .setUseMemCache(true)
                     //设置显示圆形图片

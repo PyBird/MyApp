@@ -1,11 +1,13 @@
 package com.example.feng.myapp.view;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ant.liao.GifView;
@@ -26,9 +28,7 @@ public class LoadingGifDialog extends ProgressDialog {
         this.context = context;
         mConvertView = LayoutInflater.from(context).inflate(layoutRes, null, false);
 
-        GifView gv_img = (GifView)mConvertView.findViewById(R.id.gv_img);
-        gv_img.setGifImage(R.drawable.loading_man);
-        gv_img.setShowDimension(77,111);
+        setGifImg();
     }
 
     public LoadingGifDialog(Context context, int theme) {
@@ -37,9 +37,7 @@ public class LoadingGifDialog extends ProgressDialog {
         this.context = context;
         mConvertView = LayoutInflater.from(context).inflate(layoutRes, null, false);
 
-        GifView gv_img = (GifView)mConvertView.findViewById(R.id.gv_img);
-        gv_img.setGifImage(R.drawable.loading_man);
-        gv_img.setShowDimension(77,111);
+        setGifImg();
     }
 
     public LoadingGifDialog(Context context,String title,String message) {
@@ -47,13 +45,20 @@ public class LoadingGifDialog extends ProgressDialog {
 
         this.context = context;
         mConvertView = LayoutInflater.from(context).inflate(layoutRes, null, false);
-        GifView gv_img = (GifView)mConvertView.findViewById(R.id.gv_img);
-        gv_img.setGifImage(R.drawable.loading_man);
-        gv_img.setShowDimension(77,111);
+
+        setGifImg();
 
         setDialogTitle(title);
         setDialogMessage(message);
 
+    }
+
+    public void setGifImg(){
+
+        GifView gv_img = (GifView)mConvertView.findViewById(R.id.gv_img);
+        gv_img.setLayoutParams(new LinearLayout.LayoutParams(77,111));
+        gv_img.setShowDimension(77,111);
+        gv_img.setGifImage(R.drawable.loading_man);
     }
 
     public void setDialogTitle(String title){
@@ -83,7 +88,8 @@ public class LoadingGifDialog extends ProgressDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(layoutRes);
+        this.setContentView(mConvertView);
+//        this.setContentView(layoutRes);
 //        this.setView(mConvertView);
     }
 

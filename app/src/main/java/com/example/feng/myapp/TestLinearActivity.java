@@ -16,6 +16,7 @@ import com.daimajia.androidviewhover.BlurLayout;
 import com.example.feng.myapp.base.BaseActivity;
 import com.example.feng.myapp.common.Common;
 import com.example.feng.myapp.utils.MyToastUtils;
+import com.example.feng.myapp.view.LoadingGifDialog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONArray;
@@ -33,7 +34,9 @@ public class TestLinearActivity extends BaseActivity {
     LinearLayout ll_linear;
 
     private Context context;
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
+
+    private LoadingGifDialog loadingGifDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +44,11 @@ public class TestLinearActivity extends BaseActivity {
         setContentView(R.layout.activity_test_linear);
 
         context=this;
-        progressDialog = new ProgressDialog(context);
-//        progressDialog.setTitle("数据加载中……");
-        progressDialog.setMessage("数据加载中……");
+//        progressDialog = new ProgressDialog(context);
+//        progressDialog.setMessage("数据加载中……");
+
+        loadingGifDialog = new LoadingGifDialog(context);
+        loadingGifDialog.setDialogMessage("加载中……");
 
         ll_linear = (LinearLayout)findViewById(R.id.ll_linear);
 
@@ -59,7 +64,8 @@ public class TestLinearActivity extends BaseActivity {
 
     private void getData(){
 
-        progressDialog.show();
+//        progressDialog.show();
+        loadingGifDialog.show();
         RequestParams params = new RequestParams(Common.SERVER_URL+"getInfoData.php");
 
         x.http().get(params, new Callback.CacheCallback<JSONObject>() {
@@ -112,7 +118,8 @@ public class TestLinearActivity extends BaseActivity {
 
             @Override
             public void onFinished() {
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
+                loadingGifDialog.dismiss();
                 Log.e("onFinished","--------------------------onFinished-----");
             }
         });

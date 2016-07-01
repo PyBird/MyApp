@@ -10,20 +10,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.feng.myapp.R;
 import com.example.feng.myapp.utils.SmartAdapter;
 import com.example.feng.myapp.utils.ViewHolder;
+import com.example.feng.myapp.view.GalleryFlow;
+import com.example.feng.myapp.view.GalleryFlowAdapter;
+import com.example.feng.myapp.view.GalleryImageAdapter;
+import com.example.feng.myapp.view.GalleryView;
 import com.example.feng.myapp.view.MarqueeTextView;
 
 import java.util.ArrayList;
-
 
 public class TestGalleryActivity extends Activity {
 
@@ -33,21 +35,113 @@ public class TestGalleryActivity extends Activity {
 
     public RecyclerView recyclerView;
 
-    private int[] myImageIds = {R.drawable.logo, R.drawable.ic_launcher,R.drawable.loading};
+    private GalleryView galleryView;
+    private GalleryImageAdapter galleryImageAdapter;
+
+    private GalleryFlow galleryFlow;
+
+    private int[] myImageIds = {R.drawable.model_activity, R.drawable.model_free,R.drawable.model_recommended};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_gallery);
 
-        testGallery();
+//        testGalleryView();
+        testGalleryFlow();
+//        testGallery();
 //        testRecyclerView();
     }
+
+    /*********************************testGalleryFlow---***************************************/
+    private void testGalleryFlow(){
+
+        galleryFlow = (GalleryFlow)findViewById(R.id.galleryFlow);
+        galleryFlow.setVisibility(View.VISIBLE);
+
+        GalleryFlowAdapter galleryFlowAdapter = new GalleryFlowAdapter(this,myImageIds);
+        galleryFlow.setAdapter(galleryFlowAdapter);
+        galleryFlow.setSelection(galleryFlowAdapter.getCount() / 2);
+
+//        galleryImageAdapter = new GalleryImageAdapter(this);
+//        galleryFlow.setAdapter(galleryImageAdapter);
+//        galleryFlow.setSelection(galleryImageAdapter.getCount() / 2);
+    }
+    /*********************************testGalleryFlow---***************************************/
+
+    /*********************************testGalleryView---***************************************/
+    private void testGalleryView(){
+        galleryView = (GalleryView)findViewById(R.id.galleryView);
+        galleryView.setVisibility(View.VISIBLE);
+
+        galleryImageAdapter = new GalleryImageAdapter(this);
+//        galleryImageAdapter.createReflectedImages();
+
+        galleryView.setAdapter(galleryImageAdapter);
+
+//        galleryView.setAdapter(new BaseAdapter() {
+//            @Override
+//            public int getCount() {
+//                return myImageIds.length;
+//            }
+//
+//            @Override
+//            public Object getItem(int position) {
+//                return myImageIds[position];
+//            }
+//
+//            @Override
+//            public long getItemId(int position) {
+//                return position;
+//            }
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//
+////                if(convertView==null){
+////                    convertView= LinearLayout.inflate(TestGalleryActivity.this,R.layout.item_gallery_img,null);
+////                }
+////
+////                ImageView iv_img = (ImageView)convertView.findViewById(R.id.iv_img);
+////                iv_img.setImageResource(myImageIds[position]);
+////                return iv_img;
+//
+//                ImageView imageView = new ImageView(TestGalleryActivity.this);
+//                imageView.setImageResource(myImageIds[position]);        // 设置倒影图片
+//                imageView.setLayoutParams(new GalleryView.LayoutParams(GalleryView.LayoutParams.WRAP_CONTENT, GalleryView.LayoutParams.WRAP_CONTENT));
+//                imageView.setScaleType(ImageView.ScaleType.MATRIX);
+//
+//                return imageView;
+//            }
+//        });
+
+        galleryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(TestGalleryActivity.this, position + "---onItemClick", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        galleryView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(TestGalleryActivity.this, position + "---onItemSelected", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(TestGalleryActivity.this,"---onNothingSelected", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+    /*********************************testGalleryView---+++***************************************/
 
     /************************testRecyclerView---********************************/
     private void testRecyclerView(){
 
         recyclerView=(RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView.setVisibility(View.VISIBLE);
 
         MyAdapter myAdapter = new MyAdapter();
 
@@ -117,7 +211,7 @@ public class TestGalleryActivity extends Activity {
             protected void setView(ViewHolder viewHolder, String item) {
 
                 ImageView iv_img = viewHolder.GetView(R.id.iv_img);
-                iv_img.setImageResource(R.drawable.logo);
+                iv_img.setImageResource(R.drawable.logo_h);
 
                 MarqueeTextView tv_title = viewHolder.GetView(R.id.tv_title);
                 tv_title.setText(item);
@@ -170,7 +264,7 @@ public class TestGalleryActivity extends Activity {
             ImageView imageView = new ImageView(mContext);
             //　设置当前图像的图像（position为当前图像列表的位置）
 //            imageView.setImageResource(data[position]);
-            imageView.setImageResource(R.drawable.logo);
+            imageView.setImageResource(R.drawable.logo_h);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setLayoutParams(new Gallery.LayoutParams(Gallery.LayoutParams.MATCH_PARENT, Gallery.LayoutParams.WRAP_CONTENT));
             //　设置Gallery组件的背景风格
@@ -186,7 +280,7 @@ public class TestGalleryActivity extends Activity {
     {
         int     mGalleryItemBackground;
         private Context mContext;         /* ImageAdapter的建构子 */
-//        private int[] myImageIds = {R.drawable.logo,
+//        private int[] myImageIds = {R.drawable.logo_h,
 //                R.drawable.ic_launcher,R.drawable.loading};
 
         public ImageAdapter2(Context c)

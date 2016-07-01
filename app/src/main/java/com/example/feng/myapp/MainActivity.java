@@ -1,5 +1,7 @@
 package com.example.feng.myapp;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Intent;
@@ -30,6 +32,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout ll_center_right;
 
     private int LinearHeight=-1;
+
+    private int timeDo=800;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,19 +117,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         int width2 = width/2;
 
         TranslateAnimation translate1 = new TranslateAnimation(-width2,0,-height,0);
-        translate1.setDuration(1000);
+        translate1.setDuration(timeDo);
         translate1.setFillAfter(true);
 
         TranslateAnimation translate2 = new TranslateAnimation(width2,0,-height,0);
-        translate2.setDuration(1000);
+        translate2.setDuration(timeDo);
         translate2.setFillAfter(true);
 
         TranslateAnimation translate3 = new TranslateAnimation(-width2,0,height,0);
-        translate3.setDuration(1000);
+        translate3.setDuration(timeDo);
         translate3.setFillAfter(true);
 
         TranslateAnimation translate4 = new TranslateAnimation(width2,0,height,0);
-        translate4.setDuration(1000);
+        translate4.setDuration(timeDo);
         translate4.setFillAfter(true);
 
 //        ll_top_left.setAnimation(translate1);
@@ -139,6 +143,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ll_top_right.startAnimation(translate2);
         ll_top_left2.startAnimation(translate3);
         ll_top_right2.startAnimation(translate4);
+
+        propertyValuesHolder(ll_center_left);
+        propertyValuesHolder(ll_center_right);
 
 
         translate4.setAnimationListener(new Animation.AnimationListener() {
@@ -163,5 +170,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             }
         });
+    }
+
+    public void propertyValuesHolder(View view)
+    {
+        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("alpha", 1f, 0f, 1f);
+        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 1f, 0, 1f);
+        PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 1f, 0, 1f);
+
+        ObjectAnimator.ofPropertyValuesHolder(view, pvhX, pvhY,pvhZ).setDuration(timeDo).start();
     }
 }

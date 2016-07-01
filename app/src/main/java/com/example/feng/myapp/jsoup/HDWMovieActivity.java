@@ -89,7 +89,7 @@ public class HDWMovieActivity extends BaseActivity {
                 ImageView iv_img = viewHolder.GetView(R.id.iv_img);
 //                x.image().bind(iv_img,item.get("img"), LoadImgUtils.getImageOptions());
 //                iv_img.setLayoutParams(layoutParams);
-                Picasso.with(HDWMovieActivity.this).load(item.get("img")).error(R.drawable.ic_launcher).placeholder(R.drawable.logo).into(iv_img);
+                Picasso.with(HDWMovieActivity.this).load(item.get("img")).error(R.drawable.ic_launcher).placeholder(R.drawable.logo_h).into(iv_img);
 
 //                viewHolder.setTextToTextView(R.id.tv_title,item.get("title"));
                 MarqueeTextView tv_title = viewHolder.GetView(R.id.tv_title);

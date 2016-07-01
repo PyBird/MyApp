@@ -54,7 +54,7 @@ public class TestLoadingActivity extends BaseActivity {
             public void onClick(View v) {
 
                 LoadingGifDialog loadingGifDialog = new LoadingGifDialog(TestLoadingActivity.this);
-                loadingGifDialog.setMessage("加载中");
+                loadingGifDialog.setDialogMessage("加载中……");
                 loadingGifDialog.show();
             }
         });

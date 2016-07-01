@@ -6,6 +6,7 @@
     tools:context="com.example.feng.myapp.test.TestGalleryActivity">
 
     <Gallery
+        android:visibility="gone"
         android:id="@+id/gallery"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -18,5 +19,23 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <com.example.feng.myapp.view.GalleryView
+        android:visibility="gone"
+        android:id="@+id/galleryView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:unselectedAlpha="128"
+        android:spacing="30dp"/>
+
+    <com.example.feng.myapp.view.GalleryFlow
+        android:layout_marginLeft="-10dp"
+        android:layout_marginRight="-10dp"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:id="@+id/galleryFlow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spacing="0dp"/>
 
 </RelativeLayout>
