@@ -1,6 +1,7 @@
 package com.example.feng.myapp.view;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -14,6 +15,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader.TileMode;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
@@ -21,12 +23,23 @@ import android.widget.ImageView;
  * Created by onepeak on 2016/7/1.
  */
 public class GalleryFlowAdapter extends BaseAdapter {
-    private Context mContext;
+    private Activity mContext;
     private int[] mImageIds;
 
-    public GalleryFlowAdapter(Context c, int[] ImageIds) {
+    private int imgW=450;
+    private int imgH=261;
+
+    public GalleryFlowAdapter(Activity c, int[] ImageIds) {
         mContext = c;
         mImageIds = ImageIds;
+
+        WindowManager wm = mContext.getWindowManager();
+        //获取屏幕宽高
+        int width = wm.getDefaultDisplay().getWidth();
+        final int newWidth = width/3;
+
+        imgH =newWidth*imgH/imgW;
+        imgW = newWidth;
     }
 
     public int getCount() {
@@ -80,7 +93,7 @@ public class GalleryFlowAdapter extends BaseAdapter {
 
         ImageView imageView = new ImageView(mContext);
         imageView.setImageBitmap(bitmapWithReflection);
-        imageView.setLayoutParams(new GalleryFlow.LayoutParams(450, 261));
+        imageView.setLayoutParams(new GalleryFlow.LayoutParams(imgW, imgH));
 //        imageView.setLayoutParams(new GalleryFlow.LayoutParams(GalleryFlow.LayoutParams.WRAP_CONTENT, GalleryFlow.LayoutParams.WRAP_CONTENT));
 //        imageView.setScaleType(ImageView.ScaleType.MATRIX);
         imageView.setImageResource(mImageIds[position % mImageIds.length]);

@@ -17,9 +17,11 @@ import android.widget.LinearLayout;
 import com.example.feng.myapp.base.BaseActivity;
 import com.example.feng.myapp.naviMapDemo.MultipleRoutePlanningActivity;
 import com.example.feng.myapp.test.TestAnimationsActivity;
+import com.example.feng.myapp.test.TestBluetoothActivity;
 import com.example.feng.myapp.test.TestGalleryActivity;
 import com.example.feng.myapp.test.TestLoadingActivity;
 import com.example.feng.myapp.test.TestPropertyAnimationActivity;
+import com.example.feng.myapp.test.TwoSidedViewActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -89,6 +91,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             case R.id.ll_top_left2:
 //                startActivity(new Intent(this,TestJsoupActivity.class));
+                startActivity(new Intent(this,TwoSidedViewActivity.class));
                 break;
 
             case R.id.ll_top_right2:
@@ -103,7 +106,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
 
             case R.id.ll_center_right:
-                startActivity(new Intent(this,TestLoadingActivity.class));
+//                startActivity(new Intent(this,TestLoadingActivity.class));
+                startActivity(new Intent(this,TestBluetoothActivity.class));
                 break;
         }
     }

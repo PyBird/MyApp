@@ -3,6 +3,7 @@ package com.example.feng.myapp.view;
 import android.content.Context;
 import android.graphics.Camera;
 import android.graphics.Matrix;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,7 +15,7 @@ import android.widget.ImageView;
 public class GalleryFlow extends Gallery
 {
     private Camera mCamera = new Camera();
-    private int mMaxRotationAngle = 150;
+    private int mMaxRotationAngle = 10;
     private int mMaxZoom = -100;
     private int mCoveflowCenter;
 
@@ -93,7 +94,8 @@ public class GalleryFlow extends Gallery
         int rotationAngle = 0;
 
         t.clear();
-        t.setTransformationType(Transformation.TYPE_MATRIX);
+//        t.setTransformationType(Transformation.TYPE_MATRIX);
+//        t.setAlpha(1f);
 
         if (childCenter == mCoveflowCenter)
         {
@@ -141,26 +143,83 @@ public class GalleryFlow extends Gallery
 
         // 在Z轴上正向移动camera的视角，实际效果为放大图片。
         // 如果在Y轴上移动，则图片上下移动；X轴上对应图片左右移动。
-        mCamera.translate(0.0f, 0.0f, 100.0f);
+//        mCamera.translate(0.0f, 0.0f, 100.0f);
 //        mCamera.translate(0.0f, 0.0f, 50.0f);
 
-        if (rotation < mMaxRotationAngle)
-        {
-            float zoomAmount = (float) (mMaxZoom + (rotation * 1.5));
-            mCamera.translate(0.0f, 0.0f, zoomAmount);
-            Log.e("zoomAmount","---------"+zoomAmount+"-----rotationAngle-"+rotationAngle);
-        }
+        float uu = mMaxRotationAngle;
+
+//        if (rotation < mMaxRotationAngle)
+//        {
+//            float zoomAmount = (float) (mMaxZoom + (rotation * 1.5));
+//            mCamera.translate(0.0f, 0.0f, zoomAmount);
+//        }
+
+//        if (rotationAngle==0)//
+//        {
+////            float zoomAmount = (float) (mMaxZoom + (mMaxRotationAngle * 1.5));
+//            float aaa = (rotation/mMaxRotationAngle) * 50.0f;
+//            mCamera.translate(0.0f, 0.0f, -50.0f);
+//        }
+
+//        if (rotation < mMaxRotationAngle)
+//        {
+//
+//            float ro = rotation;
+//            float max = mMaxRotationAngle;
+//            float angle =  (ro/max)*uu;
+//            if(rotationAngle>0){
+//                mCamera.rotateY(-rotation);// rotationAngle 为正，沿y轴向内旋转； 为负，沿y轴向外旋转
+//            }
+//            else if(rotationAngle<0){
+//                mCamera.rotateY(rotation);
+//            }
+////            else{
+////                mCamera.rotateY(0);
+////            }
+//
+//            Log.e("angle","===== "+angle+" -----rotationAngle== "+rotationAngle+" ====mMaxRotationAngle= "+mMaxRotationAngle);
+//        }
+
+//        uu = Math.abs(uu-rotation);
+//        if(rotationAngle==10){
+//            mCamera.rotateY(-uu);// rotationAngle 为正，沿y轴向内旋转； 为负，沿y轴向外旋转
+////            Log.e("rotationAngle","===== "+rotationAngle);
+////            mCamera.rotate(0.0f, -uu, 0.0f);
+//        }
+//        else if(rotationAngle==-10){
+//            mCamera.rotateY(uu);
+////            imageMatrix.postTranslate(0.0f,-uu);
+////            child.setScaleY(1.5f);
+//        }
 
         if(rotationAngle>0){
-            mCamera.rotateY(-10);// rotationAngle 为正，沿y轴向内旋转； 为负，沿y轴向外旋转
+            if(rotationAngle==10){
+                mCamera.rotateY(-uu);
+            }else{
+                mCamera.rotateY(-rotation);
+            }
         }
         else if(rotationAngle<0){
-            mCamera.rotateY(10);
+            if(rotationAngle==-10){
+                mCamera.rotateY(uu);
+            }else{
+                mCamera.rotateY(rotation);
+            }
         }
 
+//        Log.e("angle","===== "+t+" -----rotationAngle== "+rotationAngle+" ====mMaxRotationAngle= "+mMaxRotationAngle);
+
         mCamera.getMatrix(imageMatrix);
-        imageMatrix.preTranslate(-(imageWidth / 2), -(imageHeight / 2));
-        imageMatrix.postTranslate((imageWidth / 2), (imageHeight / 2));
+//        imageMatrix.preTranslate(-(imageWidth / 2), -(imageHeight / 2));
+//        imageMatrix.postTranslate((imageWidth / 2), (imageHeight / 2));
+        if(rotationAngle>0){
+            imageMatrix.preTranslate(-(imageWidth), -(imageHeight/2));
+            imageMatrix.postTranslate((imageWidth), (imageHeight/2));
+        }
+        else if(rotationAngle<0){
+            imageMatrix.preTranslate(0, -(imageHeight / 2));
+            imageMatrix.postTranslate(0, (imageHeight / 2));
+        }
         mCamera.restore();
     }
 
@@ -170,4 +229,33 @@ public class GalleryFlow extends Gallery
 //         return super.onFling(e1, e2, velocityX/1.5f, velocityY);
         return false;
     }
+
+//    @Override
+//    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+//        super.onScroll(e1,e2,distanceX, distanceY);
+//
+//        int padding = (this.getWidth() - 450) / 2;
+//        //往左 从 padding 到 -(v.getWidth()-padding) 的过程中，由大到小
+//        float rate = 0;
+//        if (this.getLeft() <= padding) {
+//            if (this.getLeft() >= padding - this.getWidth()) {
+//                rate = (padding - this.getLeft()) * 1f / this.getWidth();
+//            } else {
+//                rate = 1;
+//            }
+//            this.setScaleY(1 - rate * 0.1f);
+//            this.setScaleX(1 - rate * 0.1f);
+//
+//        } else {
+//            //往右 从 padding 到 recyclerView.getWidth()-padding 的过程中，由大到小
+//            if (this.getLeft() <= this.getWidth() - padding) {
+//                rate = (this.getWidth() - padding - this.getLeft()) * 1f / this.getWidth();
+//            }
+//            this.setScaleY(0.9f + rate * 0.1f);
+//            this.setScaleX(0.9f + rate * 0.1f);
+//        }
+//
+//        return true;
+//    }
+
 }
