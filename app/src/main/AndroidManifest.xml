@@ -7,8 +7,8 @@
         android:targetSdkVersion="20" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <!-- 高德地图 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -62,8 +62,12 @@
         <activity android:name=".test.TestGalleryActivity" />
         <activity android:name=".test.TestPropertyAnimationActivity" />
         <activity android:name=".test.TestLoadingActivity" />
-        <activity android:name=".test.TestBluetoothActivity"/>
-        <activity android:name=".test.TwoSidedViewActivity"/>
+        <activity android:name=".test.TestBluetoothActivity" />
+        <activity android:name=".test.TwoSidedViewActivity" />
+        <activity android:name=".jingdong.loading.JDMainActivity" />
+        <activity android:name=".jingdong.loading.PullToRefreshActivity" />
+        <activity android:name=".jingdong.loading.TestScrollView.RefreshScrollowActivity" />
+        <activity android:name=".jingdong.loading.TestScrollView.JDTestActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "F:\\My\\MyApp\\library2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
+        "source": "F:\\My\\MyApp\\library2\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
+    },
+    {
+        "merged": "F:\\My\\MyApp\\library2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_header_vertical_my.xml",
+        "source": "F:\\My\\MyApp\\library2\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_header_vertical_my.xml"
+    },
+    {
+        "merged": "F:\\My\\MyApp\\library2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
+        "source": "F:\\My\\MyApp\\library2\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
+    }
+]

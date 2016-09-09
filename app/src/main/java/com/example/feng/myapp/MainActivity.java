@@ -2,8 +2,6 @@ package com.example.feng.myapp;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.app.Activity;
-import android.app.WallpaperManager;
 import android.content.Intent;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,13 +13,12 @@ import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 
 import com.example.feng.myapp.base.BaseActivity;
-import com.example.feng.myapp.naviMapDemo.MultipleRoutePlanningActivity;
-import com.example.feng.myapp.test.TestAnimationsActivity;
+import com.example.feng.myapp.jingdong.loading.PullToRefreshActivity;
+import com.example.feng.myapp.jingdong.loading.TestScrollView.JDTestActivity;
+import com.example.feng.myapp.jingdong.loading.TestScrollView.RefreshScrollowActivity;
 import com.example.feng.myapp.test.TestBluetoothActivity;
 import com.example.feng.myapp.test.TestGalleryActivity;
-import com.example.feng.myapp.test.TestLoadingActivity;
 import com.example.feng.myapp.test.TestPropertyAnimationActivity;
-import com.example.feng.myapp.test.TwoSidedViewActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -83,33 +80,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         switch (v.getId()){
             case R.id.ll_top_left:
-                startActivity(new Intent(this,TestListActivity.class));
+//                startActivity(new Intent(this,TestListActivity.class));
+//                startActivity(new Intent(this,JDMainActivity.class));
+                startActivity(new Intent(this,PullToRefreshActivity.class));
                 break;
             case R.id.ll_top_right:
-                startActivity(new Intent(this,TestLinearActivity.class));
-                break;
+//                startActivity(new Intent(this,RefreshScrollowActivity.class));
+                startActivity(new Intent(this,JDTestActivity.class));
+//                startActivity(new Intent(this,TestLinearActivity.class));
+        break;
 
-            case R.id.ll_top_left2:
-//                startActivity(new Intent(this,TestJsoupActivity.class));
-                startActivity(new Intent(this,TwoSidedViewActivity.class));
-                break;
+        case R.id.ll_top_left2:
+        startActivity(new Intent(this,TestJsoupActivity.class));
+//                startActivity(new Intent(this,TwoSidedViewActivity.class));
+        break;
 
-            case R.id.ll_top_right2:
+        case R.id.ll_top_right2:
 //                startActivity(new Intent(this,MultipleRoutePlanningActivity.class));
 //                startActivity(new Intent(this,TestActivity.class));
 //                startActivity(new Intent(this,TestAnimationsActivity.class));
-                startActivity(new Intent(this,TestGalleryActivity.class));
-                break;
+        startActivity(new Intent(this,TestGalleryActivity.class));
+        break;
 
-            case R.id.ll_center_left:
-                startActivity(new Intent(this,TestPropertyAnimationActivity.class));
-                break;
+        case R.id.ll_center_left:
+        startActivity(new Intent(this,TestPropertyAnimationActivity.class));
+        break;
 
-            case R.id.ll_center_right:
+        case R.id.ll_center_right:
 //                startActivity(new Intent(this,TestLoadingActivity.class));
-                startActivity(new Intent(this,TestBluetoothActivity.class));
-                break;
-        }
+        startActivity(new Intent(this,TestBluetoothActivity.class));
+        break;
+    }
     }
 
     public void initAnimation(int uuuu){
