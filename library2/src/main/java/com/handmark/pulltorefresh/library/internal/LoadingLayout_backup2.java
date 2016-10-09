@@ -43,7 +43,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Orientation;
 import com.handmark.pulltorefresh.library.R;
 
 @SuppressLint("ViewConstructor")
-public abstract class LoadingLayout extends FrameLayout implements ILoadingLayout {
+public abstract class LoadingLayout_backup2 extends FrameLayout implements ILoadingLayout {
 
 	static final String LOG_TAG = "PullToRefresh-LoadingLayout";
 
@@ -71,7 +71,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 	private CharSequence mRefreshingLabel;
 	private CharSequence mReleaseLabel;
 
-	public LoadingLayout(Context context, final Mode mode, final Orientation scrollDirection, TypedArray attrs) {
+	public LoadingLayout_backup2(Context context, final Mode mode, final Orientation scrollDirection, TypedArray attrs) {
 		super(context);
 		mMode = mode;
 		mScrollDirection = scrollDirection;
@@ -84,14 +84,20 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 			default:
 //				LayoutInflater.from(context).inflate(R.layout.pull_to_refresh_header_vertical, this);
 //				LayoutInflater.from(context).inflate(R.layout.pull_to_header_vertical_my, this);
-//				LayoutInflater.from(context).inflate(R.layout.pull_to_header_vertical_car, this);
-
-				if(mode==mode.PULL_FROM_START){
-					LayoutInflater.from(context).inflate(R.layout.pull_to_header_vertical_car, this);
-				}else{
-					LayoutInflater.from(context).inflate(R.layout.pull_to_refresh_header_vertical, this);
-				}
+				LayoutInflater.from(context).inflate(R.layout.pull_to_header_vertical_car, this);
 				break;
+		}
+
+		LayoutParams lp;
+		if(mScrollDirection==Orientation.VERTICAL){
+			my_head_rl = (RelativeLayout) findViewById(R.id.my_head_rl);
+			rl_car = (RelativeLayout) my_head_rl.findViewById(R.id.rl_car);
+			iv_car = (ImageView) my_head_rl.findViewById(R.id.iv_car);
+			ll_my_inner = (LinearLayout) my_head_rl.findViewById(R.id.ll_my_inner);
+
+			lp = (LayoutParams) my_head_rl.getLayoutParams();
+		}else{
+			lp = (LayoutParams) mInnerLayout.getLayoutParams();
 		}
 
 		mInnerLayout = (FrameLayout) findViewById(R.id.fl_inner);
@@ -100,20 +106,12 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 		mSubHeaderText = (TextView) mInnerLayout.findViewById(R.id.pull_to_refresh_sub_text);
 		mHeaderImage = (ImageView) mInnerLayout.findViewById(R.id.pull_to_refresh_image);
 
-		if(mScrollDirection==Orientation.VERTICAL && mode==mode.PULL_FROM_START){
-//			my_head_rl = (RelativeLayout) findViewById(R.id.my_head_rl);
-//			rl_car = (RelativeLayout) my_head_rl.findViewById(R.id.rl_car);
-			iv_car = (ImageView) mInnerLayout.findViewById(R.id.iv_car);
-//			ll_my_inner = (LinearLayout) my_head_rl.findViewById(R.id.ll_my_inner);
-
-		}
-
 //		if(mScrollDirection==Orientation.VERTICAL){
 //			ll_my_inner = (LinearLayout) mInnerLayout.findViewById(R.id.ll_my_inner);
 //			my_head_img = (ImageView) mInnerLayout.findViewById(R.id.my_head_img);
 //		}
 
-		FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mInnerLayout.getLayoutParams();
+//		FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mInnerLayout.getLayoutParams();
 
 		switch (mode) {
 			case PULL_FROM_END:

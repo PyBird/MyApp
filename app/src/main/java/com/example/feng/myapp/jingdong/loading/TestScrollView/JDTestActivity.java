@@ -25,7 +25,7 @@ public class JDTestActivity extends Activity {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 
-                Log.e("onPullDownToRefresh","------onPullDownToRefresh-------refreshView "+refreshView);
+//                Log.e("onPullDownToRefresh","------onPullDownToRefresh-------refreshView "+refreshView);
                new GetDataTask().execute();
             }
 
@@ -33,7 +33,7 @@ public class JDTestActivity extends Activity {
             public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 
                 new GetDataTask().execute();
-                Log.e("onPullUpToRefresh","------onPullUpToRefresh-------refreshView "+refreshView);
+//                Log.e("onPullUpToRefresh","------onPullUpToRefresh-------refreshView "+refreshView);
 
             }
         });
@@ -63,7 +63,7 @@ public class JDTestActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            Log.e("GetDataTask","------onPostExecute-------result "+result);
+//            Log.e("GetDataTask","------onPostExecute-------result "+result);
             mPullRefreshScrollView.onRefreshComplete();
             super.onPostExecute(result);
         }

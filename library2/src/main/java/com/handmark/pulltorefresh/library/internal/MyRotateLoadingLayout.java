@@ -20,16 +20,17 @@ import android.content.res.TypedArray;
 import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView.ScaleType;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Orientation;
 import com.handmark.pulltorefresh.library.R;
 
-public class RotateLoadingLayout extends LoadingLayout {
+public class MyRotateLoadingLayout extends LoadingLayout {
 
 	static final int ROTATION_ANIMATION_DURATION = 1200;
 
@@ -42,7 +43,7 @@ public class RotateLoadingLayout extends LoadingLayout {
 
 	private AnimationDrawable mAnimationDrawable;
 
-	public RotateLoadingLayout(Context context, Mode mode, Orientation scrollDirection, TypedArray attrs) {
+	public MyRotateLoadingLayout(Context context, Mode mode, Orientation scrollDirection, TypedArray attrs) {
 		super(context, mode, scrollDirection, attrs);
 
 		mRotateDrawableWhilePulling = attrs.getBoolean(R.styleable.PullToRefresh_ptrRotateDrawableWhilePulling, true);
@@ -62,6 +63,8 @@ public class RotateLoadingLayout extends LoadingLayout {
 //        mAnimationDrawable = (AnimationDrawable) mHeaderImage.getDrawable();
 //		my_head_img.setImageResource(R.drawable.animation_loading);
 //		mAnimationDrawable = (AnimationDrawable) my_head_img.getDrawable();
+
+		Log.e("MyRotateLoadingLayout","------MyRotateLoadingLayout-------mode "+mode);
 	}
 
 	public void onLoadingDrawableSet(Drawable imageDrawable) {
@@ -69,16 +72,24 @@ public class RotateLoadingLayout extends LoadingLayout {
 			mRotationPivotX = Math.round(imageDrawable.getIntrinsicWidth() / 2f);
 			mRotationPivotY = Math.round(imageDrawable.getIntrinsicHeight() / 2f);
 		}
+
+		Log.e("MyRotateLoadingLayout","------onLoadingDrawableSet------- ");
 	}
 
 	protected void onPullImpl(float scaleOfLayout) {
 		float angle;
 
-		if(mMode== PullToRefreshBase.Mode.PULL_FROM_START){
+		if(mMode== Mode.PULL_FROM_START){
 			mHeaderImage.setVisibility(VISIBLE);
 			mHeaderProgress.setVisibility(GONE);
 			mHeaderText.setVisibility(GONE);
 			mSubHeaderText.setVisibility(GONE);
+
+//				if(mScrollDirection==Orientation.VERTICAL && iv_car != null){
+//					iv_car.setImageResource(R.drawable.animation_loading);
+//					mAnimationDrawable = (AnimationDrawable) iv_car.getDrawable();
+//				}
+
 		}else{
 
 			if (mRotateDrawableWhilePulling) {
@@ -102,21 +113,37 @@ public class RotateLoadingLayout extends LoadingLayout {
 //			my_head_img.setVisibility(INVISIBLE);
 //			ll_my_inner.setVisibility(VISIBLE);
 //		}
+
+		Log.e("MyRotateLoadingLayout","------onPullImpl------- ");
 	}
 
 	@Override
 	protected void refreshingImpl() {
-		mHeaderImage.startAnimation(mRotateAnimation);
+//		mHeaderImage.startAnimation(mRotateAnimation);
 
-//		mAnimationDrawable.start();
+		if(mScrollDirection==Orientation.VERTICAL && iv_car != null){
+			iv_car.setImageResource(R.drawable.animation_loading);
+			mAnimationDrawable = (AnimationDrawable) iv_car.getDrawable();
+		}
+
+		if(mAnimationDrawable != null ){
+//			mAnimationDrawable.start();
+		}else{
+			mHeaderImage.startAnimation(mRotateAnimation);
+		}
+
+		Log.e("MyRotateLoadingLayout","------refreshingImpl------- ");
 	}
 
 	@Override
 	protected void resetImpl() {
 		mHeaderImage.clearAnimation();
+		if(iv_car != null){
+			iv_car.clearAnimation();
+		}
 		resetImageRotation();
 
-		if(mMode== PullToRefreshBase.Mode.PULL_FROM_START){
+		if(mMode== Mode.PULL_FROM_START){
 			mHeaderImage.setVisibility(VISIBLE);
 			mHeaderProgress.setVisibility(GONE);
 			mHeaderText.setVisibility(GONE);
@@ -127,6 +154,8 @@ public class RotateLoadingLayout extends LoadingLayout {
 			mSubHeaderText.setVisibility(VISIBLE);
 			mHeaderImage.setVisibility(GONE);
 		}
+
+		Log.e("MyRotateLoadingLayout","------resetImpl------- ");
 	}
 
 	private void resetImageRotation() {
@@ -134,20 +163,32 @@ public class RotateLoadingLayout extends LoadingLayout {
 			mHeaderImageMatrix.reset();
 			mHeaderImage.setImageMatrix(mHeaderImageMatrix);
 		}
+
+		Log.e("MyRotateLoadingLayout","------resetImageRotation------- ");
 	}
 
 	@Override
 	protected void pullToRefreshImpl() {
 		// NO-OP
+
+		Log.e("MyRotateLoadingLayout","------pullToRefreshImpl------- ");
 	}
 
 	@Override
 	protected void releaseToRefreshImpl() {
 		// NO-OP
+
+//		if(mAnimationDrawable != null ){
+//			mAnimationDrawable.start();
+//		}else{
+//			mHeaderImage.startAnimation(mRotateAnimation);
+//		}
+		Log.e("MyRotateLoadingLayout","------releaseToRefreshImpl------- ");
 	}
 
 	@Override
 	protected int getDefaultDrawableResId() {
+		Log.e("MyRotateLoadingLayout","------getDefaultDrawableResId------- ");
 		return R.drawable.default_ptr_rotate;
 	}
 

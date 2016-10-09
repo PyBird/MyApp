@@ -18,7 +18,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:padding="8dp"
-            android:text="456455677787\nsdagdsagd\nsahgah4555\n4aglajljh\n j刚卡机开个会尽快\n卡卡感\n觉到空间啊个"
+            android:text="456455677787\nsdagdsagd\nsahgah4555\n4aglajljh\n j刚卡机开个会尽快\n卡卡感\n觉到空间啊个
+            \n觉到空间啊个\n觉到空间啊个\n觉到空间啊个\n觉到空间啊个个\n个\n个\n个\n个\n个\n\n个\n个\n个\n个\n个个\n个\n个\n\n个\n个\n个\n个\n个\n觉到空间啊个"
             android:textSize="16sp" />
 
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>

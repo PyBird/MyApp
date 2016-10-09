@@ -10,7 +10,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.R;
 
 /**
- * Created by tocet on 2016/8/25.
+ * Created by one on 2016/8/25.
  */
 public class MyLoadingLayout extends LoadingLayout {
 
@@ -20,8 +20,8 @@ public class MyLoadingLayout extends LoadingLayout {
         super(context, mode, scrollDirection, attrs);
 //        mHeaderImage.setImageResource(R.drawable.animation_loading);
 //        mAnimationDrawable = (AnimationDrawable) mHeaderImage.getDrawable();
-        my_head_img.setImageResource(R.drawable.animation_loading);
-        mAnimationDrawable = (AnimationDrawable) my_head_img.getDrawable();
+        iv_car.setImageResource(R.drawable.animation_loading);
+        mAnimationDrawable = (AnimationDrawable) iv_car.getDrawable();
 
     }
 
@@ -50,11 +50,11 @@ public class MyLoadingLayout extends LoadingLayout {
     protected void refreshingImpl() {
 
         if(mMode== PullToRefreshBase.Mode.PULL_FROM_START){
-            my_head_img.setVisibility(VISIBLE);
+            iv_car.setVisibility(VISIBLE);
             ll_my_inner.setVisibility(INVISIBLE);
             mAnimationDrawable.start();
         }else{
-            my_head_img.setVisibility(INVISIBLE);
+            iv_car.setVisibility(INVISIBLE);
             ll_my_inner.setVisibility(VISIBLE);
         }
         Log.e("MyLoadingLayout","----------refreshingImpl---mMode "+mMode+" -----Mode.PULL_FROM_START "+PullToRefreshBase.Mode.PULL_FROM_START);
