@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ScrollView;
 
 import com.example.feng.myapp.R;
+import com.example.feng.myapp.utils.CarWheelDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
@@ -47,6 +49,18 @@ public class JDTestActivity extends Activity {
 //                Log.e("onRefresh","------onRefresh-------refreshView "+refreshView);
 //            }
 //        });
+
+        mPullRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
+
+        final CarWheelDialog carWheelDialog = new CarWheelDialog(this,R.style.commonDialog);
+//        carWheelDialog.setMessage("121354646");
+
+        findViewById(R.id.tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                carWheelDialog.show();
+            }
+        });
     }
 
     private class GetDataTask extends AsyncTask<Void, Void, Void> {

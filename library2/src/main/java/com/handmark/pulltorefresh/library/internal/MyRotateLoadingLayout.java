@@ -43,8 +43,12 @@ public class MyRotateLoadingLayout extends LoadingLayout {
 
 	private AnimationDrawable mAnimationDrawable;
 
+	private Context context;
+
 	public MyRotateLoadingLayout(Context context, Mode mode, Orientation scrollDirection, TypedArray attrs) {
 		super(context, mode, scrollDirection, attrs);
+
+		this.context = context;
 
 		mRotateDrawableWhilePulling = attrs.getBoolean(R.styleable.PullToRefresh_ptrRotateDrawableWhilePulling, true);
 
@@ -122,8 +126,12 @@ public class MyRotateLoadingLayout extends LoadingLayout {
 //		mHeaderImage.startAnimation(mRotateAnimation);
 
 		if(mScrollDirection==Orientation.VERTICAL && iv_car != null){
-			iv_car.setImageResource(R.drawable.animation_loading);
-			mAnimationDrawable = (AnimationDrawable) iv_car.getDrawable();
+//			iv_car.setImageResource(R.drawable.animation_loading);
+//			mAnimationDrawable = (AnimationDrawable) iv_car.getDrawable();
+
+			Animation animation = AnimationUtils.loadAnimation(context,R.anim.anim_left_to_right);
+//			iv_car.setAnimation(animation);
+			iv_car.startAnimation(animation);
 		}
 
 		if(mAnimationDrawable != null ){

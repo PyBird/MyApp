@@ -16,4 +16,13 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="uploadSuccessDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowBackground">@color/abc_search_url_text_holo</item>
+    </style>
+
 </resources>

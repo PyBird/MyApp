@@ -67,7 +67,8 @@
         <activity android:name=".jingdong.loading.JDMainActivity" />
         <activity android:name=".jingdong.loading.PullToRefreshActivity" />
         <activity android:name=".jingdong.loading.TestScrollView.RefreshScrollowActivity" />
-        <activity android:name=".jingdong.loading.TestScrollView.JDTestActivity"></activity>
+        <activity android:name=".jingdong.loading.TestScrollView.JDTestActivity" />
+        <activity android:name=".test.TestBug1Activity"></activity>
     </application>
 
 </manifest>

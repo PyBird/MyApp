@@ -17,6 +17,7 @@ import com.example.feng.myapp.jingdong.loading.PullToRefreshActivity;
 import com.example.feng.myapp.jingdong.loading.TestScrollView.JDTestActivity;
 import com.example.feng.myapp.jingdong.loading.TestScrollView.RefreshScrollowActivity;
 import com.example.feng.myapp.test.TestBluetoothActivity;
+import com.example.feng.myapp.test.TestBug1Activity;
 import com.example.feng.myapp.test.TestGalleryActivity;
 import com.example.feng.myapp.test.TestPropertyAnimationActivity;
 
@@ -82,7 +83,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.ll_top_left:
 //                startActivity(new Intent(this,TestListActivity.class));
 //                startActivity(new Intent(this,JDMainActivity.class));
-                startActivity(new Intent(this,PullToRefreshActivity.class));
+//                startActivity(new Intent(this,PullToRefreshActivity.class));
+                startActivity(new Intent(this,TestBug1Activity.class));
                 break;
             case R.id.ll_top_right:
 //                startActivity(new Intent(this,RefreshScrollowActivity.class));

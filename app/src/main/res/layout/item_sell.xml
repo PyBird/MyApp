@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+           >
+            <TextView
+                android:id="@+id/name_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="颐和园"
+                android:textColor="#404040"/>
+
+            <RelativeLayout
+                android:layout_width="135dp"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="18dp"
+                >
+                <ImageButton
+                    android:id="@+id/img_btn_minus"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/default_ptr_flip"/>
+                <TextView
+                    android:id="@+id/text_Count"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_toRightOf="@id/img_btn_minus"
+                    android:gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="#404040"
+                    android:text="1"
+                    />
+
+                <ImageButton
+                    android:id="@+id/img_btn_plus"
+                    android:background="@drawable/default_ptr_flip"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@id/text_Count"
+                    />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            >
+
+            <LinearLayout
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/text_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QWE"
+                    android:textColor="#404040"/>
+                <TextView
+                    android:id="@+id/text_TicketPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/text_price"
+                    android:text="90"
+                    android:textColor="#808080"/>
+            </LinearLayout>>
+
+            <LinearLayout
+                android:id="@+id/allMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@id/price"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AAA"
+                    android:textColor="#404040"/>
+                <TextView
+                    android:id="@+id/tv_all_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="90元"
+                    android:textColor="#808080"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_buy"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:text="BBB"
+                android:textColor="#FFFFFF"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

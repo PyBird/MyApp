@@ -3,21 +3,16 @@
 
         <FrameLayout
             android:id="@+id/fl_inner"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/loading1"/>
 
             <ImageView
                 android:layout_gravity="bottom"
                 android:id="@+id/iv_car"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/indicator_arrow"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/car_bg_img"/>
 
             <FrameLayout
                 android:visibility="gone"
@@ -65,6 +60,13 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:visibility="gone" />
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/car_mian_img"
+                android:id="@+id/imageView" />
 
         </FrameLayout>
 

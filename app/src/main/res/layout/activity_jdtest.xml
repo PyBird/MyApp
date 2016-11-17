@@ -15,6 +15,7 @@
         app:ptrMode="both">
 
         <TextView
+            android:id="@+id/tv"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:padding="8dp"
