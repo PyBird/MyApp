@@ -19,8 +19,6 @@ public class BaseActivity extends Activity {
 //        //设置全屏
 //        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN , WindowManager.LayoutParams. FLAG_FULLSCREEN);
 
-        //初始化xutils
-        x.Ext.init(getApplication());
-        x.Ext.setDebug(true);
+        x.view().inject(this);
     }
 }

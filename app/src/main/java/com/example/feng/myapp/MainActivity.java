@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 
+import com.example.feng.myapp.animation.AnimationActivity;
 import com.example.feng.myapp.base.BaseActivity;
 import com.example.feng.myapp.jingdong.loading.PullToRefreshActivity;
 import com.example.feng.myapp.jingdong.loading.TestScrollView.JDTestActivity;
@@ -84,7 +85,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                startActivity(new Intent(this,TestListActivity.class));
 //                startActivity(new Intent(this,JDMainActivity.class));
 //                startActivity(new Intent(this,PullToRefreshActivity.class));
-                startActivity(new Intent(this,TestBug1Activity.class));
+                startActivity(new Intent(this,AnimationActivity.class));
+//                startActivity(new Intent(this,TestBug1Activity.class));
                 break;
             case R.id.ll_top_right:
 //                startActivity(new Intent(this,RefreshScrollowActivity.class));

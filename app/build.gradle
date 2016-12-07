@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion "21.0.0"
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.example.feng.myapp"
         minSdkVersion 15
-        targetSdkVersion 20
+        targetSdkVersion 19
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
         versionCode 1
@@ -41,6 +41,12 @@ android {
         }
     }
 
+    packagingOptions {
+
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+    }
+
 //      解决jackson包冲突
 //    packagingOptions {
 //        exclude 'META-INF/DEPENDENCIES.txt'
@@ -59,8 +65,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:20.+'
     compile project(':library')
     compile files('libs/xutils3.3.jar')
     compile files('libs/jackson-annotations-2.7.4.jar')
@@ -70,7 +74,11 @@ dependencies {
     compile files('libs/AMap3DMap_3.3.1_AMapNavi_1.8.0_20160420.jar')
     compile files('libs/Msc.jar')
     compile files('libs/picasso-2.5.2.jar')
-    compile 'com.android.support:recyclerview-v7:24.0.0'
     compile files('libs/GifView.jar')
     compile project(':library2')
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+    compile 'org.xutils:xutils:3.3.36'
+    testCompile 'junit:junit:4.12'
 }

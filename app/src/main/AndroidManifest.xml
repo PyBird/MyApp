@@ -21,8 +21,7 @@
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- android:theme="@android:style/Theme.Light.NoTitleBar" -->
     <application xmlns:tools="http://schemas.android.com/tools"
@@ -31,7 +30,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-        tools:replace="android:icon">
+        tools:replace="android:icon"
+        android:name=".base.App">
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="8996c9ad97acfb81996ea2400118c0fd" />
@@ -68,7 +68,9 @@
         <activity android:name=".jingdong.loading.PullToRefreshActivity" />
         <activity android:name=".jingdong.loading.TestScrollView.RefreshScrollowActivity" />
         <activity android:name=".jingdong.loading.TestScrollView.JDTestActivity" />
-        <activity android:name=".test.TestBug1Activity"></activity>
+        <activity android:name=".test.TestBug1Activity" />
+        <activity android:name=".animation.AnimationActivity" />
+        <activity android:name=".animation.ActivityOptionsActivity" />
     </application>
 
 </manifest>

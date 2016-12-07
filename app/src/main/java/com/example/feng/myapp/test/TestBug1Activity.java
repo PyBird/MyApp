@@ -2,8 +2,10 @@ package com.example.feng.myapp.test;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,6 +13,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.feng.myapp.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +36,29 @@ public class TestBug1Activity extends Activity {
         sellAdapter = new SellAdapter();
         lv_list = (ListView)findViewById(R.id.lv_list);
         lv_list.setAdapter(sellAdapter);
+
+//        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                String txt = "[{\"name\":\"阿拉坦图雅\",\"mobile\":[\"15000000003\"]},{\"name\":\"阿里通\",\"mobile\":[\"02589654124\",\"02589654125\",\"02578544127\",\"076938943112\",\"076938941199\",\"076028141290\",\"076028141293\",\"076028141288\",\"076938943188\",\"076938804111\"]}]";
+//
+//                try {
+//                    JSONArray jsonArray = new JSONArray(txt);
+//                    for(int jj=0;jj<jsonArray.length();jj++){
+//                        JSONObject jsonObject = jsonArray.getJSONObject(jj);
+//                        JSONArray mobile = jsonObject.getJSONArray("mobile");
+//                        Log.e("mobile","---"+mobile);
+//                        String mm = mobile.getString(1);
+//                        Log.e("mobile","--mm--"+mobile);
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+
     }
 
     class SellAdapter extends BaseAdapter {
@@ -104,6 +133,21 @@ public class TestBug1Activity extends Activity {
                     holder.ticketCount.setText((Integer.valueOf(holder.ticketCount.getText().toString()) - 1 + ""));
                     if(Integer.valueOf(holder.ticketCount.getText().toString()) < 1){
                         holder.ticketCount.setText("1");
+                    }
+
+                    String txt = "[{\"name\":\"阿拉坦图雅\",\"mobile\":[\"15000000003\"]},{\"name\":\"阿里通\",\"mobile\":[\"02589654124\",\"02589654125\",\"02578544127\",\"076938943112\",\"076938941199\",\"076028141290\",\"076028141293\",\"076028141288\",\"076938943188\",\"076938804111\"]}]";
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(txt);
+                        for(int jj=0;jj<jsonArray.length();jj++){
+                            JSONObject jsonObject = jsonArray.getJSONObject(jj);
+                            JSONArray mobile = jsonObject.getJSONArray("mobile");
+                            String mm = mobile.getString(0);
+                            Log.e("mobile","--mm--"+mm);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
             });
